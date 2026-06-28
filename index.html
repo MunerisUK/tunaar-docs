@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tunaar — IPTV &amp; HDHomeRun for Plex</title>
+<script>
+  (function () {
+    var s = localStorage.getItem('tunaar-theme');
+    if (!s) s = matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+    document.documentElement.setAttribute('data-theme', s);
+  })();
+</script>
+<style>
+:root{
+  --bg:#0c0f14;--bg-glow:#1a2030;--panel:#141923;--panel-2:#1b2230;--line:#273042;
+  --text:#e8ecf3;--muted:#8a94a6;--accent:#ff7a18;--accent-2:#ffb347;--code:#ffd9b0;
+}
+:root[data-theme="light"]{
+  --bg:#f4f6fb;--bg-glow:#ffe6cc;--panel:#fff;--panel-2:#eef1f7;--line:#dfe4ee;
+  --text:#1b2230;--muted:#6b7587;--accent:#e85d04;--accent-2:#f48c06;--code:#9a3d00;
+}
+*{box-sizing:border-box}
+body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  background:radial-gradient(1200px 600px at 80% -10%,var(--bg-glow) 0%,var(--bg) 55%);
+  color:var(--text);min-height:100vh;line-height:1.6;display:flex;flex-direction:column}
+a{color:var(--accent-2)}
+.toggle{position:fixed;top:18px;right:20px;background:var(--panel-2);border:1px solid var(--line);
+  color:var(--text);border-radius:999px;padding:7px 12px;font-size:13px;cursor:pointer}
+.toggle:hover{border-color:var(--accent)}
+main{flex:1;max-width:760px;margin:0 auto;padding:60px 28px;text-align:center}
+.brand{font-size:30px;font-weight:700;letter-spacing:.3px;margin-top:16px}
+.brand span{background:linear-gradient(90deg,var(--accent),var(--accent-2));-webkit-background-clip:text;background-clip:text;color:transparent}
+.tag{color:var(--muted);font-size:17px;max-width:560px;margin:10px auto 0}
+.cards{display:flex;gap:18px;flex-wrap:wrap;justify-content:center;margin-top:38px}
+.cards a{flex:1;min-width:240px;max-width:320px;text-decoration:none;text-align:left;
+  background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:24px;color:var(--text);
+  transition:border-color .15s ease,transform .15s ease}
+.cards a:hover{border-color:var(--accent);transform:translateY(-2px)}
+.cards .ico{font-size:30px}
+.cards h3{margin:12px 0 6px;font-size:19px}
+.cards h3 span{color:var(--accent-2)}
+.cards p{margin:0;color:var(--muted);font-size:14px}
+.pill{display:inline-block;margin-top:30px;font-size:12px;color:var(--muted);border:1px solid var(--line);
+  border-radius:999px;padding:6px 14px;background:var(--panel)}
+.pill code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;color:var(--code)}
+.feats{max-width:620px;margin:34px auto 0;text-align:left;display:grid;gap:10px}
+.feats div{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:12px 16px;font-size:14px;color:var(--muted)}
+.feats b{color:var(--text)}
+.buy{margin-top:22px;font-size:14px}
+footer{color:var(--muted);font-size:12px;text-align:center;padding:26px;border-top:1px solid var(--line)}
+footer a{color:var(--muted)}
+</style>
+</head>
+<body>
+<button class="toggle" id="tg">🌙</button>
+<main>
+  <svg width="84" height="84" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" aria-label="Tunaar">
+    <defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ff7a18"/><stop offset="1" stop-color="#ffb347"/></linearGradient></defs>
+    <rect x="6" y="18" width="52" height="38" rx="7" fill="#11151c" stroke="url(#g)" stroke-width="3"/>
+    <path d="M20 18 L32 6 L44 18" fill="none" stroke="url(#g)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="32" cy="6" r="2.6" fill="#ffb347"/>
+    <circle cx="44" cy="37" r="9" fill="none" stroke="url(#g)" stroke-width="3"/>
+    <line x1="44" y1="37" x2="44" y2="30" stroke="#ffb347" stroke-width="3" stroke-linecap="round"/>
+    <rect x="15" y="40" width="4" height="7" rx="1.5" fill="url(#g)"/>
+    <rect x="22" y="35" width="4" height="12" rx="1.5" fill="url(#g)"/>
+    <rect x="29" y="30" width="4" height="17" rx="1.5" fill="url(#g)"/>
+  </svg>
+  <div class="brand">Tun<span>aar</span></div>
+  <p class="tag">A single-container bridge that makes IPTV playlists and real HDHomeRun tuners
+     appear in Plex as one Live-TV device — with a unified guide.</p>
+
+  <div class="cards">
+    <a href="install.html">
+      <div class="ico">📦</div>
+      <h3>Docker <span>Install Guide</span></h3>
+      <p>Capabilities, requirements, and two ways to install — plus automatic updates.</p>
+    </a>
+    <a href="user-guide.html">
+      <div class="ico">📖</div>
+      <h3>User <span>Guide</span></h3>
+      <p>Add channels, get a guide, and connect Tunaar to Plex — all from the dashboard.</p>
+    </a>
+  </div>
+
+  <div class="feats">
+    <div><b>📺 HDHomeRun emulation</b> — Plex, Emby &amp; Jellyfin auto-discover it as a network tuner.</div>
+    <div><b>🔗 Merge IPTV + a real HDHomeRun</b> — many M3U playlists and an OTA tuner behind one device, collision-free numbering.</div>
+    <div><b>🗓️ Unified XMLTV guide</b> — auto-detected and merged, with name-matching and manual EPG mapping.</div>
+    <div><b>🩹 Plex duplicate-description fix</b> — keep a separate description per airing (new in 0.8.2).</div>
+    <div><b>🎞️ Reliable streaming</b> — ffmpeg remux, real tuner slots, web dashboard with live logs.</div>
+    <div><b>⚡ One-click country playlists</b> — free iptv-org lists for UK/US/CA/FR/DE and more.</div>
+  </div>
+
+  <p class="buy">30-day free trial, then <b>£16.99/yr</b> or <b>£49.99 lifetime</b> — <a href="https://muneris.lemonsqueezy.com/">get a licence</a>.</p>
+
+  <div class="pill">Version <code>0.8.2</code></div>
+  <div class="pill">Image: <code>ghcr.io/munerisuk/tunaar:latest</code></div>
+</main>
+<footer>
+  Tunaar v0.8.2 · <a href="https://muneris.lemonsqueezy.com/">Get a licence</a> ·
+  IPTV &amp; HDHomeRun for Plex, Emby &amp; Jellyfin
+</footer>
+<script>
+  var t=document.getElementById('tg');
+  function paint(){t.textContent=document.documentElement.getAttribute('data-theme')==='light'?'☀️':'🌙';}
+  paint();
+  t.addEventListener('click',function(){
+    var n=document.documentElement.getAttribute('data-theme')==='light'?'dark':'light';
+    document.documentElement.setAttribute('data-theme',n);localStorage.setItem('tunaar-theme',n);paint();
+  });
+</script>
+</body>
+</html>

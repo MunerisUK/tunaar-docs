@@ -1,0 +1,240 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tunaar — Docker Capabilities &amp; Install Guide</title>
+<script>
+  (function () {
+    var s = localStorage.getItem('tunaar-theme');
+    if (!s) s = matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+    document.documentElement.setAttribute('data-theme', s);
+  })();
+</script>
+<style>
+:root{
+  --bg:#0c0f14;--bg-glow:#1a2030;--panel:#141923;--panel-2:#1b2230;--line:#273042;
+  --text:#e8ecf3;--muted:#8a94a6;--accent:#ff7a18;--accent-2:#ffb347;--ok:#35c46b;
+  --warn:#ffb347;--err:#ff5c5c;--code:#ffd9b0;
+}
+:root[data-theme="light"]{
+  --bg:#f4f6fb;--bg-glow:#ffe6cc;--panel:#fff;--panel-2:#eef1f7;--line:#dfe4ee;
+  --text:#1b2230;--muted:#6b7587;--accent:#e85d04;--accent-2:#f48c06;--ok:#1f9d57;
+  --warn:#c77700;--err:#d64545;--code:#9a3d00;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  background:radial-gradient(1200px 600px at 80% -10%,var(--bg-glow) 0%,var(--bg) 55%);
+  color:var(--text);min-height:100vh;line-height:1.6}
+a{color:var(--accent-2)}
+header{display:flex;align-items:center;gap:14px;padding:22px 28px;border-bottom:1px solid var(--line);
+  position:sticky;top:0;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(8px);z-index:5}
+header .logo{width:44px;height:44px}
+.brand{font-size:22px;font-weight:700;letter-spacing:.3px}
+.brand span{background:linear-gradient(90deg,var(--accent),var(--accent-2));-webkit-background-clip:text;background-clip:text;color:transparent}
+.ver{color:var(--muted);font-size:12px;margin-left:6px}
+.nav{margin-left:auto;display:flex;gap:6px;flex-wrap:wrap}
+.nav a{color:var(--muted);text-decoration:none;font-size:13px;padding:7px 13px;border-radius:999px;border:1px solid transparent}
+.nav a:hover{color:var(--text)}
+.nav a.cta{border-color:var(--line);background:var(--panel-2);color:var(--text)}
+.toggle{background:var(--panel-2);border:1px solid var(--line);color:var(--text);border-radius:999px;
+  padding:7px 12px;font-size:13px;cursor:pointer}
+.toggle:hover{border-color:var(--accent)}
+main{padding:30px 28px 60px;max-width:980px;margin:0 auto}
+.hero{text-align:center;padding:28px 0 10px}
+.hero h1{font-size:34px;margin:14px 0 8px}
+.hero p{color:var(--muted);font-size:17px;max-width:620px;margin:0 auto}
+.pill{display:inline-block;margin-top:14px;font-size:12px;color:var(--muted);border:1px solid var(--line);
+  border-radius:999px;padding:5px 13px;background:var(--panel)}
+h2{font-size:13px;color:var(--muted);text-transform:uppercase;letter-spacing:.7px;margin:42px 0 14px;
+  padding-bottom:8px;border-bottom:1px solid var(--line)}
+h3{font-size:17px;margin:24px 0 8px}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:18px}
+.card .ico{font-size:22px}
+.card h4{margin:8px 0 5px;font-size:15px}
+.card p{margin:0;color:var(--muted);font-size:13.5px}
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:4px 22px 18px}
+pre{background:#0a0d12;border:1px solid var(--line);border-radius:12px;padding:14px 16px;overflow:auto;
+  font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:13px;line-height:1.55;color:#d6deea}
+:root[data-theme="light"] pre{background:#10141b;color:#d6deea}
+code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:.9em;color:var(--code);
+  background:var(--panel-2);padding:1px 6px;border-radius:5px}
+pre code{background:none;color:inherit;padding:0}
+.cmt{color:#6b7686}
+table{width:100%;border-collapse:collapse;background:var(--panel);border:1px solid var(--line);
+  border-radius:12px;overflow:hidden;margin-top:6px}
+th,td{text-align:left;padding:10px 14px;border-bottom:1px solid var(--line);font-size:14px;vertical-align:top}
+th{color:var(--muted);background:var(--panel-2);font-weight:600}
+tr:last-child td{border-bottom:none}
+.note{border-left:3px solid var(--accent);background:var(--panel);border:1px solid var(--line);
+  border-radius:10px;padding:12px 16px;margin:16px 0;font-size:14px}
+.note.warn{border-left-color:var(--warn)}
+.note b{color:var(--text)}
+ol,ul{padding-left:22px}
+li{margin:6px 0}
+.steps{counter-reset:s;list-style:none;padding:0}
+.steps>li{position:relative;padding:0 0 4px 44px;margin:18px 0}
+.steps>li::before{counter-increment:s;content:counter(s);position:absolute;left:0;top:-2px;width:30px;height:30px;
+  border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--accent-2));color:#11151c;
+  font-weight:700;display:flex;align-items:center;justify-content:center;font-size:14px}
+.steps>li h3{margin:2px 0 6px}
+footer{color:var(--muted);font-size:12px;text-align:center;padding:34px;border-top:1px solid var(--line);margin-top:40px}
+.bignav{display:flex;gap:14px;flex-wrap:wrap;margin-top:18px}
+.bignav a{flex:1;min-width:220px;text-decoration:none;background:var(--panel);border:1px solid var(--line);
+  border-radius:14px;padding:18px;color:var(--text)}
+.bignav a:hover{border-color:var(--accent)}
+.bignav .k{color:var(--muted);font-size:12px;text-transform:uppercase;letter-spacing:.5px}
+.bignav .t{font-size:17px;font-weight:600;margin-top:4px}
+.bignav .t span{color:var(--accent-2)}
+</style>
+</head>
+<body>
+<header>
+  <svg class="logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Tunaar">
+    <defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ff7a18"/><stop offset="1" stop-color="#ffb347"/></linearGradient></defs>
+    <rect x="6" y="18" width="52" height="38" rx="7" fill="#11151c" stroke="url(#g)" stroke-width="3"/>
+    <path d="M20 18 L32 6 L44 18" fill="none" stroke="url(#g)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="32" cy="6" r="2.6" fill="#ffb347"/>
+    <circle cx="44" cy="37" r="9" fill="none" stroke="url(#g)" stroke-width="3"/>
+    <line x1="44" y1="37" x2="44" y2="30" stroke="#ffb347" stroke-width="3" stroke-linecap="round"/>
+    <rect x="15" y="40" width="4" height="7" rx="1.5" fill="url(#g)"/>
+    <rect x="22" y="35" width="4" height="12" rx="1.5" fill="url(#g)"/>
+    <rect x="29" y="30" width="4" height="17" rx="1.5" fill="url(#g)"/>
+  </svg>
+  <div class="brand">Tun<span>aar</span></div>
+  <span class="ver">Install Guide · v0.8.2</span>
+  <nav class="nav">
+    <a href="#capabilities">Capabilities</a>
+    <a href="#requirements">Requirements</a>
+    <a href="#install">Install</a>
+    <a href="#updates">Updates</a>
+    <a class="cta" href="user-guide.html">User Guide →</a>
+  </nav>
+  <button class="toggle" id="tg">🌙</button>
+</header>
+
+<main>
+  <section class="hero">
+    <svg width="76" height="76" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" aria-hidden="true">
+      <use href="#g"/>
+      <rect x="6" y="18" width="52" height="38" rx="7" fill="#11151c" stroke="url(#g)" stroke-width="3"/>
+      <path d="M20 18 L32 6 L44 18" fill="none" stroke="url(#g)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+      <circle cx="32" cy="6" r="2.6" fill="#ffb347"/>
+      <circle cx="44" cy="37" r="9" fill="none" stroke="url(#g)" stroke-width="3"/>
+      <line x1="44" y1="37" x2="44" y2="30" stroke="#ffb347" stroke-width="3" stroke-linecap="round"/>
+      <rect x="15" y="40" width="4" height="7" rx="1.5" fill="url(#g)"/>
+      <rect x="22" y="35" width="4" height="12" rx="1.5" fill="url(#g)"/>
+      <rect x="29" y="30" width="4" height="17" rx="1.5" fill="url(#g)"/>
+    </svg>
+    <h1>Tunaar on Docker</h1>
+    <p>A single-container bridge that makes IPTV playlists and real HDHomeRun tuners
+       appear in Plex as one Live-TV device — with a unified guide.</p>
+    <div class="pill">Version <code>0.8.2</code></div>
+    <div class="pill">Image: <code>ghcr.io/munerisuk/tunaar:latest</code></div>
+    <p style="color:var(--muted);font-size:13px;margin-top:10px">30-day free trial, then £16.99/yr or £49.99 lifetime — <a href="https://muneris.lemonsqueezy.com/">get a licence</a>.</p>
+  </section>
+
+  <h2 id="capabilities">What Tunaar does</h2>
+  <div class="cards">
+    <div class="card"><div class="ico">📺</div><h4>HDHomeRun emulation</h4><p>Answers Silicondust discovery so Plex, Emby &amp; Jellyfin auto-find it as a network tuner.</p></div>
+    <div class="card"><div class="ico">🔗</div><h4>M3U ingestion</h4><p>Pulls one or more IPTV playlists and merges them into a single, numbered lineup.</p></div>
+    <div class="card"><div class="ico">📡</div><h4>Real HDHomeRun ingest</h4><p>Absorbs a physical HDHomeRun's channels so Freeview/OTA and IPTV live behind one device.</p></div>
+    <div class="card"><div class="ico">🗓️</div><h4>XMLTV guide</h4><p>Serves a merged guide, auto-detected from playlists, with name-based matching for channels lacking an ID.</p></div>
+    <div class="card"><div class="ico">🎞️</div><h4>ffmpeg remux</h4><p>Remuxes streams for reliable Plex playback, with direct-passthrough and redirect modes too.</p></div>
+    <div class="card"><div class="ico">⚡</div><h4>One-click country playlists</h4><p>Add free iptv-org country lists (UK, US, Canada, France, Germany, Spain and more) in a click.</p></div>
+    <div class="card"><div class="ico">🩹</div><h4>Plex duplicate-description fix</h4><p>Optional guide tweak so Plex keeps a separate description per airing — clean titles, date-based episode numbers.</p></div>
+    <div class="card"><div class="ico">🎛️</div><h4>Web dashboard</h4><p>Manage sources, guide, groups and tuners from a branded UI — no config files needed.</p></div>
+    <div class="card"><div class="ico">🔄</div><h4>Auto-update</h4><p>Optional Watchtower companion keeps the container current, scoped to Tunaar only.</p></div>
+  </div>
+
+  <h2 id="requirements">Requirements</h2>
+  <div class="panel">
+    <ul>
+      <li><b>Docker</b> on a host that's always on — a NAS (QNAP/Synology/Unraid), mini-PC, or home server.</li>
+      <li><b>Plex Media Server</b> (or Emby / Jellyfin) on the same LAN.</li>
+      <li>An <b>IPTV playlist URL</b> and/or a <b>real HDHomeRun</b> device — you can also start empty and add sources from the dashboard.</li>
+      <li>A few hundred MB of disk for the image; a small persistent volume for config.</li>
+    </ul>
+    <div class="note">Tunaar runs best with <b>host networking</b> so Plex's HDHomeRun auto-discovery (UDP 65001) works. On platforms without host networking, use bridge mode and add the tuner by IP.</div>
+  </div>
+
+  <h2 id="install">Install</h2>
+  <p>Both options produce the same running container. Tunaar is distributed as a Docker image — there's nothing to clone or build.</p>
+
+  <h3>Option A — Plain <code>docker run</code> (recommended)</h3>
+  <pre><code>docker run -d --name tunaar --restart unless-stopped \
+  --network host \
+  -v /share/Container/tunaar/config:/config \
+  ghcr.io/munerisuk/tunaar:latest</code></pre>
+  <p>On a host without host networking, swap <code>--network host</code> for <code>-p 5004:5004</code>. Then browse to <code>http://&lt;host-ip&gt;:5004</code>.</p>
+
+  <h3>Option B — Docker Compose</h3>
+  <pre><code>services:
+  tunaar:
+    image: ghcr.io/munerisuk/tunaar:latest
+    container_name: tunaar
+    restart: unless-stopped
+    network_mode: host
+    volumes:
+      - ./config:/config</code></pre>
+  <pre><code>docker compose up -d</code></pre>
+
+  <h3>Configuration &amp; environment</h3>
+  <p>Everything is editable in the dashboard, but these env vars seed the container or override config:</p>
+  <table>
+    <tr><th>Variable</th><th>Default</th><th>What it does</th></tr>
+    <tr><td><code>TUNAAR_PORT</code></td><td><code>5004</code></td><td>Dashboard / API port (bridge mode only).</td></tr>
+    <tr><td><code>TUNAAR_PLAYLIST</code></td><td>—</td><td>Optional IPTV M3U URL to seed on first run.</td></tr>
+    <tr><td><code>TUNAAR_EPG_URL</code></td><td>—</td><td>Optional XMLTV guide URL.</td></tr>
+  </table>
+  <div class="note"><b>Persist your config.</b> Always mount <code>/config</code> to a bind path or named volume — otherwise your sources, guide and groups reset when the container is recreated.</div>
+
+  <h2 id="updates">Automatic updates</h2>
+  <p>Two ways to stay current — pick one.</p>
+
+  <h3>Hands-off — Watchtower (recommended)</h3>
+  <p>A tiny companion container checks for new images and updates Tunaar for you. Scope it to <b>only</b> the <code>tunaar</code> container so nothing else on your host is touched.</p>
+  <pre><code>docker run -d --name watchtower-tunaar --restart unless-stopped \
+  -v /var/run/docker.sock:/var/run/docker.sock \
+  containrrr/watchtower --cleanup --interval 86400 tunaar</code></pre>
+  <p>Lower <code>--interval</code> (seconds) to check more often; stop it with <code>docker rm -f watchtower-tunaar</code>.</p>
+
+  <h3>One-click from the dashboard</h3>
+  <p>The <b>Console → Update</b> button lets Tunaar pull a new image and recreate itself. Enable it by adding the Docker socket and flag to your <code>docker run</code> / Compose:</p>
+  <pre><code>-e TUNAAR_SELF_UPDATE=1 \
+  -v /var/run/docker.sock:/var/run/docker.sock</code></pre>
+  <div class="note warn"><b>Heads up:</b> both grant Docker (root-equivalent) access — to the Watchtower image, or to the Tunaar container itself. Opt in deliberately. Prefer neither? Pull the new image and recreate the container over SSH.</div>
+
+  <h2>Verify it's working</h2>
+  <ul>
+    <li>Dashboard loads at <code>http://&lt;host-ip&gt;:5004</code> and shows status cards.</li>
+    <li>Health check: <code>docker ps</code> shows the container <code>healthy</code> (or <code>curl http://&lt;host-ip&gt;:5004/healthz</code>).</li>
+    <li>Tuner endpoints respond: <code>/discover.json</code>, <code>/lineup.json</code>, <code>/epg.xml</code>, <code>/device.xml</code>.</li>
+  </ul>
+
+  <h2>Next steps</h2>
+  <div class="bignav">
+    <a href="user-guide.html"><div class="k">Now that it's running</div><div class="t">Open the <span>User Guide →</span></div></a>
+    <a href="#install"><div class="k">Reference</div><div class="t">Back to <span>Install ↑</span></div></a>
+  </div>
+</main>
+
+<footer>
+  Tunaar — IPTV &amp; HDHomeRun for Plex · <code>ghcr.io/munerisuk/tunaar</code><br>
+  Community lists referenced in presets are third-party and may change.
+</footer>
+
+<script>
+  var t=document.getElementById('tg');
+  function paint(){t.textContent=document.documentElement.getAttribute('data-theme')==='light'?'☀️':'🌙';}
+  paint();
+  t.addEventListener('click',function(){
+    var n=document.documentElement.getAttribute('data-theme')==='light'?'dark':'light';
+    document.documentElement.setAttribute('data-theme',n);
+    localStorage.setItem('tunaar-theme',n);paint();
+  });
+</script>
+</body>
+</html>

@@ -1,0 +1,341 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tunaar — User Guide</title>
+<script>
+  (function () {
+    var s = localStorage.getItem('tunaar-theme');
+    if (!s) s = matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+    document.documentElement.setAttribute('data-theme', s);
+  })();
+</script>
+<style>
+:root{
+  --bg:#0c0f14;--bg-glow:#1a2030;--panel:#141923;--panel-2:#1b2230;--line:#273042;
+  --text:#e8ecf3;--muted:#8a94a6;--accent:#ff7a18;--accent-2:#ffb347;--ok:#35c46b;
+  --warn:#ffb347;--err:#ff5c5c;--code:#ffd9b0;
+}
+:root[data-theme="light"]{
+  --bg:#f4f6fb;--bg-glow:#ffe6cc;--panel:#fff;--panel-2:#eef1f7;--line:#dfe4ee;
+  --text:#1b2230;--muted:#6b7587;--accent:#e85d04;--accent-2:#f48c06;--ok:#1f9d57;
+  --warn:#c77700;--err:#d64545;--code:#9a3d00;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  background:radial-gradient(1200px 600px at 80% -10%,var(--bg-glow) 0%,var(--bg) 55%);
+  color:var(--text);min-height:100vh;line-height:1.6}
+a{color:var(--accent-2)}
+header{display:flex;align-items:center;gap:14px;padding:22px 28px;border-bottom:1px solid var(--line);
+  position:sticky;top:0;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(8px);z-index:5}
+header .logo{width:44px;height:44px}
+.brand{font-size:22px;font-weight:700;letter-spacing:.3px}
+.brand span{background:linear-gradient(90deg,var(--accent),var(--accent-2));-webkit-background-clip:text;background-clip:text;color:transparent}
+.ver{color:var(--muted);font-size:12px;margin-left:6px}
+.nav{margin-left:auto;display:flex;gap:6px;flex-wrap:wrap}
+.nav a{color:var(--muted);text-decoration:none;font-size:13px;padding:7px 13px;border-radius:999px;border:1px solid transparent}
+.nav a:hover{color:var(--text)}
+.nav a.cta{border-color:var(--line);background:var(--panel-2);color:var(--text)}
+.toggle{background:var(--panel-2);border:1px solid var(--line);color:var(--text);border-radius:999px;
+  padding:7px 12px;font-size:13px;cursor:pointer}
+.toggle:hover{border-color:var(--accent)}
+.layout{display:flex;max-width:1080px;margin:0 auto;gap:28px;padding:24px 28px 60px}
+.toc{position:sticky;top:90px;align-self:flex-start;flex:0 0 200px;font-size:14px}
+.toc a{display:block;color:var(--muted);text-decoration:none;padding:5px 10px;border-radius:8px;border-left:2px solid transparent}
+.toc a:hover{color:var(--text)}
+.toc a.on{color:var(--text);border-left-color:var(--accent);background:var(--panel)}
+.content{flex:1;min-width:0}
+.hero{padding:8px 0 4px}
+.hero h1{font-size:32px;margin:6px 0 8px}
+.hero p{color:var(--muted);font-size:16px;max-width:640px}
+h2{font-size:13px;color:var(--muted);text-transform:uppercase;letter-spacing:.7px;margin:40px 0 12px;
+  padding-bottom:8px;border-bottom:1px solid var(--line);scroll-margin-top:90px}
+h3{font-size:17px;margin:22px 0 6px}
+p{margin:8px 0}
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:6px 20px 16px;margin:8px 0}
+pre{background:#0a0d12;border:1px solid var(--line);border-radius:12px;padding:13px 16px;overflow:auto;
+  font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:13px;color:#d6deea}
+code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:.9em;color:var(--code);
+  background:var(--panel-2);padding:1px 6px;border-radius:5px}
+pre code{background:none;color:inherit;padding:0}
+table{width:100%;border-collapse:collapse;background:var(--panel);border:1px solid var(--line);
+  border-radius:12px;overflow:hidden;margin-top:6px}
+th,td{text-align:left;padding:10px 14px;border-bottom:1px solid var(--line);font-size:14px;vertical-align:top}
+th{color:var(--muted);background:var(--panel-2);font-weight:600}
+tr:last-child td{border-bottom:none}
+.note{border-left:3px solid var(--accent);background:var(--panel);border:1px solid var(--line);
+  border-radius:10px;padding:12px 16px;margin:16px 0;font-size:14px}
+.note.warn{border-left-color:var(--warn)}
+.note.ok{border-left-color:var(--ok)}
+.note b{color:var(--text)}
+ol,ul{padding-left:22px}li{margin:6px 0}
+.steps{counter-reset:s;list-style:none;padding:0}
+.steps>li{position:relative;padding:0 0 4px 44px;margin:18px 0}
+.steps>li::before{counter-increment:s;content:counter(s);position:absolute;left:0;top:-2px;width:30px;height:30px;
+  border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--accent-2));color:#11151c;
+  font-weight:700;display:flex;align-items:center;justify-content:center;font-size:14px}
+.steps>li h3{margin:2px 0 6px}
+.tag{display:inline-block;font-size:11px;font-weight:600;padding:2px 9px;border-radius:999px;
+  background:var(--panel-2);border:1px solid var(--line);color:var(--accent-2);vertical-align:middle}
+footer{color:var(--muted);font-size:12px;text-align:center;padding:34px;border-top:1px solid var(--line)}
+@media(max-width:820px){.toc{display:none}}
+</style>
+</head>
+<body>
+<header>
+  <svg class="logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Tunaar">
+    <defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ff7a18"/><stop offset="1" stop-color="#ffb347"/></linearGradient></defs>
+    <rect x="6" y="18" width="52" height="38" rx="7" fill="#11151c" stroke="url(#g)" stroke-width="3"/>
+    <path d="M20 18 L32 6 L44 18" fill="none" stroke="url(#g)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="32" cy="6" r="2.6" fill="#ffb347"/>
+    <circle cx="44" cy="37" r="9" fill="none" stroke="url(#g)" stroke-width="3"/>
+    <line x1="44" y1="37" x2="44" y2="30" stroke="#ffb347" stroke-width="3" stroke-linecap="round"/>
+    <rect x="15" y="40" width="4" height="7" rx="1.5" fill="url(#g)"/>
+    <rect x="22" y="35" width="4" height="12" rx="1.5" fill="url(#g)"/>
+    <rect x="29" y="30" width="4" height="17" rx="1.5" fill="url(#g)"/>
+  </svg>
+  <div class="brand">Tun<span>aar</span></div>
+  <span class="ver">User Guide · v0.8.2</span>
+  <nav class="nav">
+    <a href="install.html">Install Guide</a>
+    <a class="cta" href="#plex">Add to Plex</a>
+  </nav>
+  <button class="toggle" id="tg">🌙</button>
+</header>
+
+<div class="layout">
+  <aside class="toc" id="toc">
+    <a href="#start">Getting started</a>
+    <a href="#wizard">Setup wizard</a>
+    <a href="#dashboard">The dashboard</a>
+    <a href="#sources">Adding channels</a>
+    <a href="#presets">Free providers</a>
+    <a href="#hdhr">Real HDHomeRun</a>
+    <a href="#guide">Guide / EPG</a>
+    <a href="#mapping">Manual EPG mapping</a>
+    <a href="#groups">Groups</a>
+    <a href="#plex">Add to Plex</a>
+    <a href="#streaming">Stream modes</a>
+    <a href="#updating">Updating</a>
+    <a href="#license">Licensing</a>
+    <a href="#trouble">Troubleshooting</a>
+    <a href="#faq">FAQ</a>
+  </aside>
+
+  <main class="content">
+    <section class="hero" id="start">
+      <h1>Using Tunaar</h1>
+      <p>Tunaar is installed and running. This guide walks through adding channels,
+         getting a guide, and connecting it to Plex — all from the web dashboard.</p>
+    </section>
+
+    <h2 id="start2" style="display:none"></h2>
+
+    <h2>Getting started</h2>
+    <div class="panel">
+      <p>Open the dashboard in any browser on your network:</p>
+      <pre><code>http://&lt;your-host-ip&gt;:5004</code></pre>
+      <p>That's the only screen you need — every setting lives here. If it doesn't load, check the
+         container is up (<code>docker ps</code>) and you're using the host's LAN IP.</p>
+    </div>
+
+    <h2 id="wizard">Setup wizard (easiest start)</h2>
+    <p>On a fresh install the <b>Setup wizard</b> opens automatically and walks you through everything in
+       four steps. You can re-run it anytime from the <b>Setup wizard</b> link in the top nav.</p>
+    <ol class="steps">
+      <li><h3>Add channels</h3><p>Click the free-provider presets you want, and/or add your own M3U list or a real HDHomeRun.</p></li>
+      <li><h3>Guide / EPG</h3><p>Leave auto-detect on; add an extra XMLTV only if a source needs its own guide.</p></li>
+      <li><h3>Trim groups</h3><p>Untick what you don't watch. A live counter warns (turns red) if the lineup is too big for Plex — aim for a few hundred.</p></li>
+      <li><h3>Connect to Plex</h3><p>Copy the tuner and <code>/epg.xml</code> URLs straight from the final step into Plex's DVR setup.</p></li>
+    </ol>
+    <div class="note">Prefer to do it manually? Every wizard step maps to a panel under <b>Settings</b> — the sections below cover each one.</div>
+
+    <h2 id="dashboard">The dashboard at a glance</h2>
+    <table>
+      <tr><th>Area</th><th>What it's for</th></tr>
+      <tr><td><b>Status cards</b></td><td>Channel count, active tuners, guide programmes, and EPG match count — your at-a-glance health.</td></tr>
+      <tr><td><b>Channels</b></td><td>The merged lineup Plex will see, with numbers, groups and source.</td></tr>
+      <tr><td><b>Settings</b></td><td>Sources, guide/EPG, and groups. Hidden by default — click <span class="tag">Show ▾</span>.</td></tr>
+      <tr><td><b>Console</b></td><td>Live logs, stream tests, and the in-app update button.</td></tr>
+      <tr><td><b>Plex endpoints</b></td><td>Quick links to the HDHomeRun/XMLTV URLs Plex consumes.</td></tr>
+    </table>
+
+    <h2 id="sources">Adding channels</h2>
+    <p>Open <b>Settings → Sources</b>. You can mix as many sources as you like — they merge into one numbered lineup.</p>
+    <ul>
+      <li><b>Free provider presets</b> — one click, guide included. <a href="#presets">See below.</a></li>
+      <li><b>M3U playlist</b> — set type to <span class="tag">M3U playlist</span>, paste the playlist URL. Optionally set a name and a "Force group".</li>
+      <li><b>Real HDHomeRun</b> — set type to <span class="tag">HDHomeRun</span>, enter the device address. <a href="#hdhr">See below.</a></li>
+    </ul>
+    <div class="note">The optional <b>Force group</b> field overrides every channel's category from that source — handy for keeping providers tidy in Plex (e.g. all of one source's channels under "Sports"). Use <b>Max ch.</b> to cap how many channels a source contributes (great for taming huge lists at the source).</div>
+    <div class="note ok">Adding an <b>Xtream-style</b> playlist (<code>…/get.php?username=&amp;password=</code>)? Tunaar auto-detects the matching <code>xmltv.php</code> guide and adds it for you — no need to find the EPG URL.</div>
+
+    <h2 id="presets">Free country playlists (one click)</h2>
+    <p>Under Sources you'll find a <b>Quick add free country playlists</b> row — one button per country
+       (UK, US, Canada, France, Germany, Spain, Italy, Brazil, Australia, Mexico, Jamaica). Click to add
+       that country's free streams; added ones show a ✓, and clicking again removes them.</p>
+    <div class="note warn">These come from the <b>iptv-org</b> community project — publicly-indexed streams,
+      maintained by volunteers. Coverage and reliability vary, and they don't include a guide, so add an
+      XMLTV guide below and let name-matching fill it in. A dead source is skipped automatically, not fatal.</div>
+
+    <h2 id="hdhr">Adding a real HDHomeRun</h2>
+    <p>Have a physical HDHomeRun (e.g. for Freeview/OTA)? Let Tunaar absorb it so Plex sees
+       <b>one</b> tuner with both OTA and IPTV — and a single guide.</p>
+    <ol class="steps">
+      <li><h3>Find the device URL</h3><p>In a browser, confirm <code>http://&lt;hdhr-ip&gt;/lineup.json</code> loads. Use <code>http://&lt;hdhr-ip&gt;</code> as the source URL.</p></li>
+      <li><h3>Add it</h3><p>Settings → Sources, type <span class="tag">HDHomeRun</span>, paste the address. Its channels appear in the lineup (default group "Freeview", keeping their channel numbers).</p></li>
+      <li><h3>Clean it up (optional)</h3><p>Freeview tuners report a lot of non-TV entries — radio stations, shopping, adult and <code>+1</code> timeshifts. Tick <b>Clean lineup</b> when adding the HDHomeRun and Tunaar skips those, leaving a tidy TV-only set.</p></li>
+      <li><h3>Get them a guide</h3><p>OTA channels have no guide ID, so Tunaar <b>matches them by name</b> to your XMLTV. Add a guide for your region (<a href="#guide">below</a>) and watch the EPG match count rise.</p></li>
+    </ol>
+    <div class="note">Don't also add the HDHomeRun directly in Plex — let Tunaar front it, or you're back to Plex's "can't mix guide types" limitation.</div>
+
+    <h2 id="guide">Guide / EPG</h2>
+    <p>Open <b>Settings → EPG</b>.</p>
+    <ul>
+      <li><b>Auto-detect</b> (on by default): uses the guide URL advertised inside each playlist — most providers include one, so the presets "just work".</li>
+      <li><b>Quick-add guides</b>: one-click buttons for regional XMLTV guides (UK/US/CA/FR/DE).</li>
+      <li><b>Manual URLs</b>: paste extra XMLTV guide links (one per line), e.g. a UK Freeview guide for OTA channels.</li>
+      <li><b>Name matching</b>: channels without a guide ID are matched to guide entries by name (HD/quality differences ignored), so OTA/HDHomeRun channels get data automatically.</li>
+      <li><b>Fix Plex duplicate-description bug</b> (optional): see below.</li>
+    </ul>
+    <p>Tunaar serves the merged result at <code>/epg.xml</code> — that's the single URL you give Plex.</p>
+    <div class="note">Paste <b>one URL per line</b> (Tunaar also splits multiple URLs pasted on one line). If a source is unreachable it's skipped with a notice rather than wiping the whole guide, and guides are fetched with a browser user-agent so hosts that block bots still work.</div>
+
+    <h3>Fix Plex duplicate-description bug</h3>
+    <p>Plex's DVR keys programme descriptions by <b>title</b>, so airings that share a title — classic
+       case: <em>"MLB Baseball"</em>, <em>"Premier League"</em> on several channels — all end up with the
+       <b>same</b> description. It's a Plex parser bug, not a guide problem.</p>
+    <p>Tick <b>Fix Plex duplicate-description bug</b> in the EPG panel and Tunaar makes each airing
+       distinguishable in the guide it serves Plex, two ways depending on the programme:</p>
+    <ul>
+      <li><b>Live events with a sub-title</b> (sport especially) → the sub-title is folded into the title,
+        e.g. <em>"Football — Arsenal v Spurs"</em> vs <em>"Football — Liverpool v Everton"</em>.</li>
+      <li><b>Everything else</b> (news, paid programming, music, generic titles) → the <b>title is left
+        clean</b> and a date-based <code>episode-num</code> is injected from the airing date instead. The
+        season is the year and the episode is the Julian day-of-year, so 27 June 2026 becomes
+        <code>S2026E178</code> (onscreen) / <code>2025.177.0</code> (xmltv_ns). A show that airs more than
+        once that day gets a trailing index — <code>S2026E178.2</code>, <code>.3</code> — so every airing
+        is unique.</li>
+    </ul>
+    <div class="note">It's off by default because it changes the guide Plex sees. <b>Episodic content is
+      left alone:</b> anything that already has a season/episode (<code>episode-num</code>) tag is skipped,
+      since Plex separates those on its own. So "News" and "Paid Programming" stay clean in the guide while
+      Plex still keeps a separate description per airing.</div>
+
+    <h2 id="mapping">Manual EPG mapping</h2>
+    <p>Some channels won't match the guide automatically — most often <b>regional Freeview</b> from a real
+       HDHomeRun, where the tuner reports <em>"BBC One South"</em> but the guide calls it <em>"BBC One"</em>.
+       Plex can't fix this (it won't mix its postcode guide with XMLTV in one setup), so Tunaar lets you
+       map them by hand.</p>
+    <ol class="steps">
+      <li><h3>Load a guide first</h3><p>The picker is populated from the channels in your loaded guide, so make sure your EPG is working (a real programme count on the dashboard) before mapping.</p></li>
+      <li><h3>Open the panel</h3><p><b>Settings → Manual EPG mapping</b>. Leave <span class="tag">Unmatched only</span> ticked to see just the channels with no guide. Use the search box to find one fast.</p></li>
+      <li><h3>Pick the guide entry</h3><p>Start typing in a channel's box and choose the matching guide channel from the dropdown (shown as <code>Name · id</code>). It saves instantly and is marked <em>(manual)</em>.</p></li>
+      <li><h3>Done — it sticks</h3><p>Manual mappings are saved and <b>always win</b> over auto-matching. Hit <span class="tag">Clear</span> on a row to remove one. Refresh the Plex guide afterwards.</p></li>
+    </ol>
+    <div class="note">Tip: map the mainstream channels you actually watch — you don't need to map every obscure one. Trim the rest with Groups.</div>
+
+    <h2 id="groups">Groups (show / hide)</h2>
+    <p>Open <b>Settings → Groups</b>. Every group is shown by default — <b>untick</b> any you don't want
+       in Plex. Great for trimming a huge US list down to the categories you actually watch. Click
+       <span class="tag">Save groups</span> when done.</p>
+
+    <h2 id="plex">Add the tuner in Plex</h2>
+    <ol class="steps">
+      <li><h3>Open DVR setup</h3><p>Plex → <b>Settings → Live TV &amp; DVR → Set up Plex DVR</b>.</p></li>
+      <li><h3>Pick Tunaar</h3><p>It should appear automatically as an HDHomeRun tuner. If not, choose "enter address manually" and use <code>http://&lt;host-ip&gt;:5004</code>.</p></li>
+      <li><h3>Skip Plex's guide, choose XMLTV</h3><p>When asked for guide data, select <b>"Use an XMLTV guide"</b> and enter <code>http://&lt;host-ip&gt;:5004/epg.xml</code>.</p></li>
+      <li><h3>Map &amp; finish</h3><p>Let Plex match channels to the guide, then finish. Your channels appear under Live TV.</p></li>
+    </ol>
+    <div class="note ok"><b>One DVR only.</b> Use a single Tunaar DVR with the XMLTV guide. Don't run a second DVR using Plex's own guide alongside it, or the lineups conflict. Emby/Jellyfin work the same way — add Tunaar as an HDHomeRun tuner and point the guide at <code>/epg.xml</code>.</div>
+
+    <h2 id="streaming">Stream modes</h2>
+    <p>Under the hood Tunaar can deliver streams three ways. The default suits most setups; change it
+       only if you hit playback issues.</p>
+    <table>
+      <tr><th>Mode</th><th>Best for</th></tr>
+      <tr><td><b>ffmpeg</b> <span class="tag">default</span></td><td>Most reliable — remuxes the stream so Plex plays it cleanly. Needs a little CPU.</td></tr>
+      <tr><td><b>direct</b></td><td>Passthrough proxy — lower overhead, but the source must already be Plex-friendly.</td></tr>
+      <tr><td><b>redirect</b></td><td>Hands Plex the source URL directly — lowest load, but Plex must reach the source itself.</td></tr>
+    </table>
+
+    <h2 id="updating">Updating Tunaar</h2>
+    <p>If you enabled <b>Watchtower</b> at install, you're done — it updates automatically. Otherwise pull
+       the new image and recreate the container (your config lives on the mounted volume, so it's kept):</p>
+    <pre><code>docker pull ghcr.io/munerisuk/tunaar:latest
+docker rm -f tunaar &amp;&amp; docker run -d --name tunaar ...   <span style="color:#6b7686"># same flags as install</span></code></pre>
+    <p>Or use the dashboard's <b>Console → Update</b> button if you mounted the Docker socket. See the
+       <a href="install.html#updates">Install Guide</a> for both options.</p>
+
+    <h2 id="license">Licensing</h2>
+    <p>Tunaar is free to try for <b>30 days</b> — no key, no sign-up, full features from first run.
+       After the trial <b>everything keeps working</b>; you'll just see a gentle banner inviting you to
+       buy a license to support development.</p>
+    <ul>
+      <li><b>Trial:</b> starts automatically on first launch and is stored with your config, so it survives restarts and updates.</li>
+      <li><b>Pricing:</b> <b>£16.99/year</b> or a one-off <b>£49.99 lifetime</b> license, from our store at <a href="https://muneris.lemonsqueezy.com/" target="_blank" rel="noopener">muneris.lemonsqueezy.com</a> — also linked from the License panel.</li>
+      <li><b>Simple activation:</b> your key is checked with Lemon Squeezy when you activate it, then cached — so it keeps working through brief internet/outage blips.</li>
+    </ul>
+    <h3>Activating a key</h3>
+    <ol class="steps">
+      <li><h3>Open the License panel</h3><p>Dashboard → <b>Settings → License</b>. It shows your current status (trial days left, or active license).</p></li>
+      <li><h3>Paste your key</h3><p>Enter the key from your purchase email and click <span class="tag">Activate</span>. The badge switches to <b>Licensed</b> — that's it.</p></li>
+    </ol>
+    <div class="note">Each license can be activated on up to <b>2 devices</b>. Activating uses one of those slots; if you hit the limit, remove a device from your Lemon Squeezy account (or contact support) to free a slot. Annual keys expire on their date; lifetime keys never do.</div>
+
+    <h2 id="trouble">Troubleshooting</h2>
+    <table>
+      <tr><th>Symptom</th><th>Try this</th></tr>
+      <tr><td>Dashboard won't load</td><td>Confirm container is up (<code>docker ps</code>); use the host's LAN IP and port 5004.</td></tr>
+      <tr><td>Plex doesn't auto-find the tuner</td><td>Use host networking, or add it manually by IP in Plex DVR setup.</td></tr>
+      <tr><td>A preset added 0 channels</td><td>The community URL may have changed — verify it loads in a browser from your network.</td></tr>
+      <tr><td>Channels have no guide</td><td>Check the EPG match count; add a guide URL for that region; OTA channels rely on name matching.</td></tr>
+      <tr><td>Regional channel won't match the guide</td><td>Use <b>Settings → Manual EPG mapping</b> to pick the right guide entry by hand (see above).</td></tr>
+      <tr><td>A guide URL returns 404</td><td>Paste one URL per line with no extra text; many EPG hosts only serve real paths — verify it loads in a browser.</td></tr>
+      <tr><td>A channel buffers / won't play</td><td>Switch that setup to <b>ffmpeg</b> stream mode; test it from <b>Console</b>.</td></tr>
+      <tr><td>Settings reset after update</td><td>Your <code>/config</code> volume isn't persisted — re-run with a bind mount (<code>TUNAAR_VOLUME=…</code>).</td></tr>
+      <tr><td>"Docker socket not mounted"</td><td>Expected unless you opted in. Use Watchtower or <code>TUNAAR_SELF_UPDATE=1</code> — see Install Guide.</td></tr>
+    </table>
+
+    <h2 id="faq">FAQ</h2>
+    <h3>Does Tunaar provide channels?</h3>
+    <p>No. Tunaar is a bridge — you supply the playlists/devices. The presets just point at free, public
+       country playlists from the <a href="https://github.com/iptv-org/iptv" target="_blank" rel="noopener">iptv-org</a>
+       project (UK, US, Canada, France, Germany and more).</p>
+    <h3>What about Plex's own free Live TV?</h3>
+    <p>That's built into Plex itself and needs no tuner — you'll already see it in the Plex app under
+       Live TV. Tunaar is for <em>your</em> playlists and HDHomeRun, which Plex can't show natively.</p>
+    <h3>Can I run IPTV and a real aerial together?</h3>
+    <p>Yes — that's a headline feature. Add both as sources; Plex sees one unified tuner and one guide.</p>
+    <h3>How many channels can I have?</h3>
+    <p>Thousands. Use Groups to hide what you don't watch so Plex stays tidy.</p>
+
+    <div class="note"><b>Need the install steps?</b> See the <a href="install.html">Docker Install Guide →</a></div>
+  </main>
+</div>
+
+<footer>Tunaar v0.8.2 — IPTV &amp; HDHomeRun for Plex · Branded user guide</footer>
+
+<script>
+  var t=document.getElementById('tg');
+  function paint(){t.textContent=document.documentElement.getAttribute('data-theme')==='light'?'☀️':'🌙';}
+  paint();
+  t.addEventListener('click',function(){
+    var n=document.documentElement.getAttribute('data-theme')==='light'?'dark':'light';
+    document.documentElement.setAttribute('data-theme',n);localStorage.setItem('tunaar-theme',n);paint();
+  });
+  // TOC scroll-spy
+  var links=[].slice.call(document.querySelectorAll('.toc a'));
+  var map=links.map(function(a){return document.getElementById(a.getAttribute('href').slice(1));});
+  function spy(){
+    var y=window.scrollY+120,i=map.length-1;
+    for(var j=0;j<map.length;j++){if(map[j]&&map[j].offsetTop<=y)i=j;}
+    links.forEach(function(a){a.classList.remove('on');});
+    if(links[i])links[i].classList.add('on');
+  }
+  window.addEventListener('scroll',spy);spy();
+</script>
+</body>
+</html>
