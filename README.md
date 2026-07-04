@@ -24,7 +24,7 @@ service you lawfully subscribe to — and you are solely responsible for their l
 Using Tunaar with pirated or infringing sources, to circumvent access controls, or for
 commercial retransmission is prohibited.
 
-Full policy: **[Acceptable Use Policy](docs/acceptable-use.html)**. Tunaar also requires
+Full policy: **[Acceptable Use Policy](acceptable-use.htmp)**. Tunaar also requires
 every user to agree to it in-app before setup can be completed.
 
 ---
