@@ -1,14 +1,14 @@
 <div align="center">
-  <img src="tunaar/static/logo.svg" width="96" alt="Tunaar logo">
+  <img src="logo.svg" width="96" alt="Tunaar logo">
   <h1>Tunaar</h1>
   <p><strong>IPTV for Plex that just works.</strong><br>
   A single-container HDHomeRun-emulating bridge that turns any IPTV M3U playlist
   into Live TV for Plex, Emby & Jellyfin — with XMLTV guide data and reliable,
   ffmpeg-remuxed streaming.</p>
   <p>
-    📦 <a href="docs/install.html">Docker Install Guide</a> &nbsp;·&nbsp;
+    📦 <a href="install.html">Docker Install Guide</a> &nbsp;·&nbsp;
     🐳 <a href="https://github.com/MunerisUK/Tunaar/pkgs/container/tunaar">Container Package</a> &nbsp;·&nbsp;
-    📖 <a href="docs/user-guide.html">User Guide</a>
+    📖 <a href="user-guide.html">User Guide</a>
     &nbsp;<em>(branded HTML — open in a browser)</em>
   </p>
 </div>
@@ -24,7 +24,7 @@ service you lawfully subscribe to — and you are solely responsible for their l
 Using Tunaar with pirated or infringing sources, to circumvent access controls, or for
 commercial retransmission is prohibited.
 
-Full policy: **[Acceptable Use Policy](acceptable-use.htmp)**. Tunaar also requires
+Full policy: **[Acceptable Use Policy](ACCEPTABLE_USE.md)**. Tunaar also requires
 every user to agree to it in-app before setup can be completed.
 
 ---

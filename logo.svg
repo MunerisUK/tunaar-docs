@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" role="img" aria-label="Tunaar">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#ff7a18"/>
+      <stop offset="1" stop-color="#ffb347"/>
+    </linearGradient>
+  </defs>
+  <rect x="6" y="18" width="52" height="38" rx="7" fill="#11151c" stroke="url(#g)" stroke-width="3"/>
+  <!-- antennae -->
+  <path d="M20 18 L32 6 L44 18" fill="none" stroke="url(#g)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="32" cy="6" r="2.6" fill="#ffb347"/>
+  <!-- tuning dial -->
+  <circle cx="44" cy="37" r="9" fill="none" stroke="url(#g)" stroke-width="3"/>
+  <line x1="44" y1="37" x2="44" y2="30" stroke="#ffb347" stroke-width="3" stroke-linecap="round"/>
+  <!-- signal bars -->
+  <rect x="15" y="40" width="4" height="7"  rx="1.5" fill="url(#g)"/>
+  <rect x="22" y="35" width="4" height="12" rx="1.5" fill="url(#g)"/>
+  <rect x="29" y="30" width="4" height="17" rx="1.5" fill="url(#g)"/>
+</svg>

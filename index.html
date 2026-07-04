@@ -1,114 +1,166 @@
 <!doctype html>
+<!--
+  AUTO-SYNCED MIRROR NOTICE
+  Source of truth: the private MunerisUK/Tunaar repo, docs/ folder.
+  This page is mirrored to the public MunerisUK/tunaar-docs repo by CI
+  (.github/workflows/sync-docs.yml). Do NOT edit the copy in tunaar-docs —
+  changes there are overwritten on the next sync. Edit in the Tunaar repo.
+-->
 <html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Tunaar — IPTV &amp; HDHomeRun for Plex</title>
-<script>
-  (function () {
-    var s = localStorage.getItem('tunaar-theme');
-    if (!s) s = matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
-    document.documentElement.setAttribute('data-theme', s);
-  })();
-</script>
+<title>Tunaar — IPTV for Plex that just works</title>
+<meta name="description" content="Tunaar turns any IPTV M3U playlist into Live TV for Plex, Emby & Jellyfin — an HDHomeRun-emulating bridge with a unified XMLTV guide and reliable ffmpeg streaming, in one Docker container.">
 <style>
 :root{
-  --bg:#0c0f14;--bg-glow:#1a2030;--panel:#141923;--panel-2:#1b2230;--line:#273042;
-  --text:#e8ecf3;--muted:#8a94a6;--accent:#ff7a18;--accent-2:#ffb347;--code:#ffd9b0;
-}
-:root[data-theme="light"]{
-  --bg:#f4f6fb;--bg-glow:#ffe6cc;--panel:#fff;--panel-2:#eef1f7;--line:#dfe4ee;
-  --text:#1b2230;--muted:#6b7587;--accent:#e85d04;--accent-2:#f48c06;--code:#9a3d00;
+  --bg:#0c0f14;--panel:#141923;--panel2:#1b2230;--line:#273042;
+  --text:#e8ecf3;--muted:#9aa4b6;--accent:#ff7a18;--accent2:#ffb347;--code:#ffd9b0;--ok:#35c46b;
 }
 *{box-sizing:border-box}
 body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
-  background:radial-gradient(1200px 600px at 80% -10%,var(--bg-glow) 0%,var(--bg) 55%);
-  color:var(--text);min-height:100vh;line-height:1.6;display:flex;flex-direction:column}
-a{color:var(--accent-2)}
-.toggle{position:fixed;top:18px;right:20px;background:var(--panel-2);border:1px solid var(--line);
-  color:var(--text);border-radius:999px;padding:7px 12px;font-size:13px;cursor:pointer}
-.toggle:hover{border-color:var(--accent)}
-main{flex:1;max-width:760px;margin:0 auto;padding:60px 28px;text-align:center}
-.brand{font-size:30px;font-weight:700;letter-spacing:.3px;margin-top:16px}
-.brand span{background:linear-gradient(90deg,var(--accent),var(--accent-2));-webkit-background-clip:text;background-clip:text;color:transparent}
-.tag{color:var(--muted);font-size:17px;max-width:560px;margin:10px auto 0}
-.cards{display:flex;gap:18px;flex-wrap:wrap;justify-content:center;margin-top:38px}
-.cards a{flex:1;min-width:240px;max-width:320px;text-decoration:none;text-align:left;
-  background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:24px;color:var(--text);
-  transition:border-color .15s ease,transform .15s ease}
-.cards a:hover{border-color:var(--accent);transform:translateY(-2px)}
-.cards .ico{font-size:30px}
-.cards h3{margin:12px 0 6px;font-size:19px}
-.cards h3 span{color:var(--accent-2)}
-.cards p{margin:0;color:var(--muted);font-size:14px}
-.pill{display:inline-block;margin-top:30px;font-size:12px;color:var(--muted);border:1px solid var(--line);
-  border-radius:999px;padding:6px 14px;background:var(--panel)}
-.pill code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;color:var(--code)}
-.feats{max-width:620px;margin:34px auto 0;text-align:left;display:grid;gap:10px}
-.feats div{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:12px 16px;font-size:14px;color:var(--muted)}
-.feats b{color:var(--text)}
-.buy{margin-top:22px;font-size:14px}
-footer{color:var(--muted);font-size:12px;text-align:center;padding:26px;border-top:1px solid var(--line)}
+  background:radial-gradient(1100px 560px at 82% -8%,#1a2030 0%,var(--bg) 55%);color:var(--text);line-height:1.6}
+a{color:var(--accent2)}
+.topnav{display:flex;align-items:center;gap:12px;max-width:960px;margin:0 auto;padding:16px 26px 0}
+.topnav .name{font-weight:800;letter-spacing:.3px}
+.topnav .name span{background:linear-gradient(90deg,var(--accent),var(--accent2));-webkit-background-clip:text;background-clip:text;color:transparent}
+.topnav nav{margin-left:auto;display:flex;gap:4px;flex-wrap:wrap}
+.topnav nav a{color:var(--muted);text-decoration:none;font-size:13px;padding:6px 12px;border-radius:999px;border:1px solid transparent}
+.topnav nav a:hover{color:var(--text);border-color:var(--line)}
+.wrap{max-width:960px;margin:0 auto;padding:24px 26px 44px}
+.hero{text-align:center;padding:20px 0 8px}
+.logo{width:78px;height:78px}
+.bignm{font-size:34px;font-weight:800;letter-spacing:.3px;margin:12px 0 2px}
+.bignm span{background:linear-gradient(90deg,var(--accent),var(--accent2));-webkit-background-clip:text;background-clip:text;color:transparent}
+.tag{font-size:19px;color:var(--muted);max-width:620px;margin:6px auto 0}
+.pills{margin-top:16px;display:flex;gap:8px;justify-content:center;flex-wrap:wrap}
+.pill{font-size:12px;color:var(--muted);border:1px solid var(--line);border-radius:999px;padding:6px 13px;background:var(--panel)}
+.pill code{font-family:ui-monospace,Menlo,Consolas,monospace;color:var(--code)}
+.cta{display:inline-block;margin:20px 8px 0;padding:12px 22px;border-radius:12px;font-weight:700;text-decoration:none}
+.cta.primary{background:linear-gradient(135deg,var(--accent),var(--accent2));color:#11151c}
+.cta.ghost{border:1px solid var(--line);color:var(--text)}
+h2{font-size:13px;letter-spacing:.8px;text-transform:uppercase;color:var(--muted);margin:44px 0 14px;border-bottom:1px solid var(--line);padding-bottom:8px}
+.lead{font-size:16px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:18px}
+.card .ic{font-size:22px}
+.card h4{margin:8px 0 5px;font-size:15px}
+.card p{margin:0;color:var(--muted);font-size:13.5px}
+.steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px;counter-reset:s}
+.step{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:18px}
+.step::before{counter-increment:s;content:counter(s);display:inline-flex;width:28px;height:28px;border-radius:50%;
+  background:linear-gradient(135deg,var(--accent),var(--accent2));color:#11151c;font-weight:800;align-items:center;justify-content:center;margin-bottom:8px}
+pre{background:#0a0d12;border:1px solid var(--line);border-radius:12px;padding:13px 16px;overflow:auto;color:#d6deea;
+  font-family:ui-monospace,Menlo,Consolas,monospace;font-size:13px}
+.price{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px}
+.tier{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:22px;text-align:center}
+.tier.hot{border-color:var(--accent)}
+.tier .amt{font-size:30px;font-weight:800;margin:6px 0}
+.tier .amt small{font-size:14px;color:var(--muted);font-weight:600}
+.tier .sub{color:var(--muted);font-size:13px;min-height:34px}
+.badge{display:inline-block;font-size:11px;font-weight:700;color:#11151c;background:linear-gradient(135deg,var(--accent),var(--accent2));border-radius:999px;padding:2px 10px}
+ul.check{list-style:none;padding:0;margin:10px 0 0;text-align:left;font-size:13.5px}
+ul.check li{margin:6px 0;padding-left:22px;position:relative}
+ul.check li::before{content:"✓";position:absolute;left:0;color:var(--ok);font-weight:800}
+.works{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;color:var(--muted);font-size:14px}
+.works span{border:1px solid var(--line);border-radius:999px;padding:6px 14px;background:var(--panel)}
+footer{margin-top:48px;border-top:1px solid var(--line);padding-top:20px;color:var(--muted);font-size:12.5px;text-align:center}
 footer a{color:var(--muted)}
+@media print{body{background:#fff;color:#111}.card,.tier,.step,pre{background:#fafafa}}
 </style>
 </head>
 <body>
-<button class="toggle" id="tg">🌙</button>
-<main>
-  <svg width="84" height="84" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" aria-label="Tunaar">
-    <defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ff7a18"/><stop offset="1" stop-color="#ffb347"/></linearGradient></defs>
-    <rect x="6" y="18" width="52" height="38" rx="7" fill="#11151c" stroke="url(#g)" stroke-width="3"/>
-    <path d="M20 18 L32 6 L44 18" fill="none" stroke="url(#g)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
-    <circle cx="32" cy="6" r="2.6" fill="#ffb347"/>
-    <circle cx="44" cy="37" r="9" fill="none" stroke="url(#g)" stroke-width="3"/>
-    <line x1="44" y1="37" x2="44" y2="30" stroke="#ffb347" stroke-width="3" stroke-linecap="round"/>
-    <rect x="15" y="40" width="4" height="7" rx="1.5" fill="url(#g)"/>
-    <rect x="22" y="35" width="4" height="12" rx="1.5" fill="url(#g)"/>
-    <rect x="29" y="30" width="4" height="17" rx="1.5" fill="url(#g)"/>
-  </svg>
-  <div class="brand">Tun<span>aar</span></div>
-  <p class="tag">A single-container bridge that makes IPTV playlists and real HDHomeRun tuners
-     appear in Plex as one Live-TV device — with a unified guide.</p>
 
-  <div class="cards">
-    <a href="install.html">
-      <div class="ico">📦</div>
-      <h3>Docker <span>Install Guide</span></h3>
-      <p>Capabilities, requirements, and two ways to install — plus automatic updates.</p>
-    </a>
-    <a href="user-guide.html">
-      <div class="ico">📖</div>
-      <h3>User <span>Guide</span></h3>
-      <p>Add channels, get a guide, and connect Tunaar to Plex — all from the dashboard.</p>
-    </a>
+  <div class="topnav">
+    <span class="name">Tun<span>aar</span></span>
+    <nav>
+      <a href="install.html">Install</a>
+      <a href="user-guide.html">User Guide</a>
+      <a href="acceptable-use.html">Acceptable Use</a>
+      <a href="legal.html">Terms &amp; Refunds</a>
+      <a href="https://muneris.lemonsqueezy.com/">Buy</a>
+    </nav>
   </div>
 
-  <div class="feats">
-    <div><b>📺 HDHomeRun emulation</b> — Plex, Emby &amp; Jellyfin auto-discover it as a network tuner.</div>
-    <div><b>🔗 Merge IPTV + a real HDHomeRun</b> — many M3U playlists and an OTA tuner behind one device, collision-free numbering.</div>
-    <div><b>🗓️ Unified XMLTV guide</b> — auto-detected and merged, with name-matching and manual EPG mapping.</div>
-    <div><b>🩹 Plex duplicate-description fix</b> — keep a separate description per airing (new in 0.8.2).</div>
-    <div><b>🎞️ Reliable streaming</b> — ffmpeg remux, real tuner slots, web dashboard with live logs.</div>
-    <div><b>⚡ One-click country playlists</b> — free iptv-org lists for UK/US/CA/FR/DE and more.</div>
+<div class="wrap">
+
+  <section class="hero">
+    <svg class="logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" aria-label="Tunaar">
+      <defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ff7a18"/><stop offset="1" stop-color="#ffb347"/></linearGradient></defs>
+      <rect x="6" y="18" width="52" height="38" rx="7" fill="#11151c" stroke="url(#g)" stroke-width="3"/>
+      <path d="M20 18 L32 6 L44 18" fill="none" stroke="url(#g)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+      <circle cx="32" cy="6" r="2.6" fill="#ffb347"/>
+      <circle cx="44" cy="37" r="9" fill="none" stroke="url(#g)" stroke-width="3"/>
+      <line x1="44" y1="37" x2="44" y2="30" stroke="#ffb347" stroke-width="3" stroke-linecap="round"/>
+      <rect x="15" y="40" width="4" height="7" rx="1.5" fill="url(#g)"/>
+      <rect x="22" y="35" width="4" height="12" rx="1.5" fill="url(#g)"/>
+      <rect x="29" y="30" width="4" height="17" rx="1.5" fill="url(#g)"/>
+    </svg>
+    <div class="bignm">Tun<span>aar</span></div>
+    <p class="tag"><strong>IPTV for Plex that just works.</strong> One Docker container turns any IPTV M3U
+      playlist into Live TV for Plex, Emby &amp; Jellyfin — with a unified guide and rock-solid streaming.</p>
+    <div class="pills">
+      <span class="pill">Version <code>0.8.5</code></span>
+      <span class="pill"><code>ghcr.io/munerisuk/tunaar</code></span>
+      <span class="pill">amd64 · arm64</span>
+    </div>
+    <a class="cta primary" href="https://muneris.lemonsqueezy.com/">Start 30-day free trial</a>
+    <a class="cta ghost" href="#pricing">See pricing</a>
+  </section>
+
+  <h2>The problem</h2>
+  <p class="lead">Plex has a great Live TV &amp; DVR — but only if it sees a tuner. Getting IPTV in there means
+    wrestling tools like xTeVe or Threadfin: fiddly EPG mapping, streams that buffer and drop, phantom
+    "all tuners busy", configs that corrupt, and Plex's own bug where every airing that shares a title gets
+    the <em>same</em> description. It's powerful, but it's a weekend of yak-shaving.</p>
+
+  <h2>The fix — Tunaar</h2>
+  <div class="grid">
+    <div class="card"><div class="ic">📺</div><h4>HDHomeRun emulation</h4><p>Answers Silicondust discovery, so Plex/Emby/Jellyfin auto-find it as a network tuner — no manual IP.</p></div>
+    <div class="card"><div class="ic">🔗</div><h4>Merge everything</h4><p>Many IPTV playlists <em>and</em> a real HDHomeRun behind one device, with collision-free numbering.</p></div>
+    <div class="card"><div class="ic">🗓️</div><h4>Guide that just works</h4><p>Auto-detects the XMLTV guide from your playlist and merges extras — with name-matching &amp; manual mapping.</p></div>
+    <div class="card"><div class="ic">🩹</div><h4>Plex duplicate-description fix</h4><p>Keeps a separate description per airing — clean titles, date-based episode numbers, movies left alone.</p></div>
+    <div class="card"><div class="ic">🎞️</div><h4>Reliable streaming</h4><p>ffmpeg-remuxed MPEG-TS with real tuner slots that release the instant a client disconnects.</p></div>
+    <div class="card"><div class="ic">🎛️</div><h4>Editable dashboard</h4><p>Add sources, pick groups, map channels and see live activity — no config files, no SSH.</p></div>
   </div>
 
-  <p class="buy">30-day free trial, then <b>£16.99/yr</b> or <b>£49.99 lifetime</b> — <a href="https://muneris.lemonsqueezy.com/">get a licence</a>.</p>
+  <h2>Up and running in two minutes</h2>
+  <div class="steps">
+    <div class="step"><h4>Run one container</h4><pre>docker run -d --name tunaar \
+  --restart unless-stopped --network host \
+  -v tunaar-config:/config \
+  ghcr.io/munerisuk/tunaar:latest</pre></div>
+    <div class="step"><h4>Add your playlist</h4><p>Open <code>http://host:5004</code>, paste your M3U (or pick a free country list), and Tunaar builds the lineup + guide. See the <a href="install.html">install guide</a>.</p></div>
+    <div class="step"><h4>Add the tuner in Plex</h4><p>Plex auto-discovers it. Point the guide at <code>/epg.xml</code> and you've got Live TV &amp; DVR. See the <a href="user-guide.html">user guide</a>.</p></div>
+  </div>
 
-  <div class="pill">Version <code>0.8.2</code></div>
-  <div class="pill">Image: <code>ghcr.io/munerisuk/tunaar:latest</code></div>
-</main>
-<footer>
-  Tunaar v0.8.2 · <a href="https://muneris.lemonsqueezy.com/">Get a licence</a> ·
-  IPTV &amp; HDHomeRun for Plex, Emby &amp; Jellyfin
-</footer>
-<script>
-  var t=document.getElementById('tg');
-  function paint(){t.textContent=document.documentElement.getAttribute('data-theme')==='light'?'☀️':'🌙';}
-  paint();
-  t.addEventListener('click',function(){
-    var n=document.documentElement.getAttribute('data-theme')==='light'?'dark':'light';
-    document.documentElement.setAttribute('data-theme',n);localStorage.setItem('tunaar-theme',n);paint();
-  });
-</script>
+  <h2 id="pricing">Pricing</h2>
+  <div class="price">
+    <div class="tier"><div class="sub">Try everything, no card</div><div class="amt">Free<br><small>30-day trial</small></div>
+      <ul class="check"><li>All features unlocked</li><li>No sign-up required</li><li>Channels keep streaming after it ends</li></ul></div>
+    <div class="tier hot"><span class="badge">Most popular</span><div class="sub">Full product, yearly</div><div class="amt">£16.99<small> / year</small></div>
+      <ul class="check"><li>Everything in Tunaar</li><li>Unlimited sources + real HDHomeRun</li><li>Premium extras &amp; the EPG fix</li><li>Use on up to 2 devices</li></ul></div>
+    <div class="tier"><div class="sub">Pay once, keep forever</div><div class="amt">£49.99<small> lifetime</small></div>
+      <ul class="check"><li>Everything, no renewals</li><li>All future 0.x updates</li><li>Use on up to 2 devices</li></ul></div>
+  </div>
+  <p style="color:var(--muted);font-size:13px;margin-top:12px">Sold securely via Lemon Squeezy (VAT/sales tax handled at checkout). See <a href="legal.html">Terms &amp; Refunds</a>. Channels always keep streaming — a licence removes the reminder and unlocks the premium extras after the trial.</p>
+
+  <h2>Works with</h2>
+  <div class="works"><span>Plex Live TV &amp; DVR</span><span>Emby</span><span>Jellyfin</span><span>QNAP · Synology · Unraid</span><span>Docker on any Linux host</span></div>
+
+  <div style="text-align:center">
+    <a class="cta primary" href="https://muneris.lemonsqueezy.com/">Get Tunaar</a>
+    <a class="cta ghost" href="mailto:info@muneris.co.uk">Talk to us</a>
+  </div>
+
+  <footer>
+    <a href="install.html">Install</a> · <a href="user-guide.html">User Guide</a> ·
+    <a href="acceptable-use.html">Acceptable Use</a> ·
+    <a href="legal.html">Terms, Refunds &amp; Privacy</a> · <a href="mailto:info@muneris.co.uk">Support</a><br><br>
+    Tunaar © 2026 Muneris Management Ltd — a company registered in England &amp; Wales (no. 09096411).
+    Tunaar is a neutral tuner bridge and provides no channels itself.
+  </footer>
+
+</div>
 </body>
 </html>
