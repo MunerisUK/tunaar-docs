@@ -4,13 +4,13 @@
   Source of truth: the private MunerisUK/Tunaar repo, docs/ folder.
   This page is mirrored to the public MunerisUK/tunaar-docs repo by CI
   (.github/workflows/sync-docs.yml). Do NOT edit the copy in tunaar-docs —
-  changes there are overwritten on the next sync. Edit in the Tunaar repo.
+  changes there are overwritten on the next sync. Edit in the MediaHelm Live repo.
 -->
 <html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Tunaar — User Guide</title>
+<title>MediaHelm Live — User Guide</title>
 <script>
   (function () {
     var s = localStorage.getItem('tunaar-theme');
@@ -92,7 +92,7 @@ footer{color:var(--muted);font-size:12px;text-align:center;padding:34px;border-t
 </head>
 <body>
 <header>
-  <svg class="logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Tunaar">
+  <svg class="logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="MediaHelm Live">
     <defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ff7a18"/><stop offset="1" stop-color="#ffb347"/></linearGradient></defs>
     <rect x="6" y="18" width="52" height="38" rx="7" fill="#11151c" stroke="url(#g)" stroke-width="3"/>
     <path d="M20 18 L32 6 L44 18" fill="none" stroke="url(#g)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
@@ -103,8 +103,8 @@ footer{color:var(--muted);font-size:12px;text-align:center;padding:34px;border-t
     <rect x="22" y="35" width="4" height="12" rx="1.5" fill="url(#g)"/>
     <rect x="29" y="30" width="4" height="17" rx="1.5" fill="url(#g)"/>
   </svg>
-  <div class="brand">Tun<span>aar</span></div>
-  <span class="ver">User Guide · v0.8.8</span>
+  <div class="brand">MediaHelm <span>Live</span></div>
+  <span class="ver">User Guide · v0.9.0</span>
   <nav class="nav">
     <a href="install.html">Install Guide</a>
     <a class="cta" href="#plex">Add to Plex</a>
@@ -133,8 +133,8 @@ footer{color:var(--muted);font-size:12px;text-align:center;padding:34px;border-t
 
   <main class="content">
     <section class="hero" id="start">
-      <h1>Using Tunaar</h1>
-      <p>Tunaar is installed and running. This guide walks through adding channels,
+      <h1>Using MediaHelm Live</h1>
+      <p>MediaHelm Live is installed and running. This guide walks through adding channels,
          getting a guide, and connecting it to Plex — all from the web dashboard.</p>
     </section>
 
@@ -177,7 +177,7 @@ footer{color:var(--muted);font-size:12px;text-align:center;padding:34px;border-t
       <li><b>Real HDHomeRun</b> — set type to <span class="tag">HDHomeRun</span>, enter the device address. <a href="#hdhr">See below.</a></li>
     </ul>
     <div class="note">The optional <b>Force group</b> field overrides every channel's category from that source — handy for keeping providers tidy in Plex (e.g. all of one source's channels under "Sports"). Use <b>Max ch.</b> to cap how many channels a source contributes (great for taming huge lists at the source).</div>
-    <div class="note ok">Adding an <b>Xtream-style</b> playlist (<code>…/get.php?username=&amp;password=</code>)? Tunaar auto-detects the matching <code>xmltv.php</code> guide and adds it for you — no need to find the EPG URL.</div>
+    <div class="note ok">Adding an <b>Xtream-style</b> playlist (<code>…/get.php?username=&amp;password=</code>)? MediaHelm Live auto-detects the matching <code>xmltv.php</code> guide and adds it for you — no need to find the EPG URL.</div>
 
     <h2 id="presets">Free country playlists (one click)</h2>
     <p>Under Sources you'll find a <b>Quick add free country playlists</b> row — one button per country
@@ -188,15 +188,15 @@ footer{color:var(--muted);font-size:12px;text-align:center;padding:34px;border-t
       XMLTV guide below and let name-matching fill it in. A dead source is skipped automatically, not fatal.</div>
 
     <h2 id="hdhr">Adding a real HDHomeRun</h2>
-    <p>Have a physical HDHomeRun (e.g. for Freeview/OTA)? Let Tunaar absorb it so Plex sees
+    <p>Have a physical HDHomeRun (e.g. for Freeview/OTA)? Let MediaHelm Live absorb it so Plex sees
        <b>one</b> tuner with both OTA and IPTV — and a single guide.</p>
     <ol class="steps">
       <li><h3>Find the device URL</h3><p>In a browser, confirm <code>http://&lt;hdhr-ip&gt;/lineup.json</code> loads. Use <code>http://&lt;hdhr-ip&gt;</code> as the source URL.</p></li>
       <li><h3>Add it</h3><p>Settings → Sources, type <span class="tag">HDHomeRun</span>, paste the address. Its channels appear in the lineup (default group "Freeview", keeping their channel numbers).</p></li>
-      <li><h3>Clean it up (optional)</h3><p>Freeview tuners report a lot of non-TV entries — radio stations, shopping, adult and <code>+1</code> timeshifts. Tick <b>Clean lineup</b> when adding the HDHomeRun and Tunaar skips those, leaving a tidy TV-only set.</p></li>
-      <li><h3>Get them a guide</h3><p>OTA channels have no guide ID, so Tunaar <b>matches them by name</b> to your XMLTV. Add a guide for your region (<a href="#guide">below</a>) and watch the EPG match count rise.</p></li>
+      <li><h3>Clean it up (optional)</h3><p>Freeview tuners report a lot of non-TV entries — radio stations, shopping, adult and <code>+1</code> timeshifts. Tick <b>Clean lineup</b> when adding the HDHomeRun and MediaHelm Live skips those, leaving a tidy TV-only set.</p></li>
+      <li><h3>Get them a guide</h3><p>OTA channels have no guide ID, so MediaHelm Live <b>matches them by name</b> to your XMLTV. Add a guide for your region (<a href="#guide">below</a>) and watch the EPG match count rise.</p></li>
     </ol>
-    <div class="note">Don't also add the HDHomeRun directly in Plex — let Tunaar front it, or you're back to Plex's "can't mix guide types" limitation.</div>
+    <div class="note">Don't also add the HDHomeRun directly in Plex — let MediaHelm Live front it, or you're back to Plex's "can't mix guide types" limitation.</div>
 
     <h2 id="guide">Guide / EPG</h2>
     <p>Open <b>Settings → EPG</b>.</p>
@@ -207,14 +207,14 @@ footer{color:var(--muted);font-size:12px;text-align:center;padding:34px;border-t
       <li><b>Name matching</b>: channels without a guide ID are matched to guide entries by name (HD/quality differences ignored), so OTA/HDHomeRun channels get data automatically.</li>
       <li><b>Fix Plex duplicate-description bug</b> (optional): see below.</li>
     </ul>
-    <p>Tunaar serves the merged result at <code>/epg.xml</code> — that's the single URL you give Plex.</p>
-    <div class="note">Paste <b>one URL per line</b> (Tunaar also splits multiple URLs pasted on one line). If a source is unreachable it's skipped with a notice rather than wiping the whole guide, and guides are fetched with a browser user-agent so hosts that block bots still work.</div>
+    <p>MediaHelm Live serves the merged result at <code>/epg.xml</code> — that's the single URL you give Plex.</p>
+    <div class="note">Paste <b>one URL per line</b> (MediaHelm Live also splits multiple URLs pasted on one line). If a source is unreachable it's skipped with a notice rather than wiping the whole guide, and guides are fetched with a browser user-agent so hosts that block bots still work.</div>
 
     <h3>Fix Plex duplicate-description bug</h3>
     <p>Plex's DVR keys programme descriptions by <b>title</b>, so airings that share a title — classic
        case: <em>"MLB Baseball"</em>, <em>"Premier League"</em> on several channels — all end up with the
        <b>same</b> description. It's a Plex parser bug, not a guide problem.</p>
-    <p>Tick <b>Fix Plex duplicate-description bug</b> in the EPG panel and Tunaar makes each airing
+    <p>Tick <b>Fix Plex duplicate-description bug</b> in the EPG panel and MediaHelm Live makes each airing
        distinguishable in the guide it serves Plex, two ways depending on the programme:</p>
     <ul>
       <li><b>Live events with a sub-title</b> (sport especially) → the sub-title is folded into the title,
@@ -237,7 +237,7 @@ footer{color:var(--muted);font-size:12px;text-align:center;padding:34px;border-t
     <h2 id="mapping">Manual EPG mapping</h2>
     <p>Some channels won't match the guide automatically — most often <b>regional Freeview</b> from a real
        HDHomeRun, where the tuner reports <em>"BBC One South"</em> but the guide calls it <em>"BBC One"</em>.
-       Plex can't fix this (it won't mix its postcode guide with XMLTV in one setup), so Tunaar lets you
+       Plex can't fix this (it won't mix its postcode guide with XMLTV in one setup), so MediaHelm Live lets you
        map them by hand.</p>
     <ol class="steps">
       <li><h3>Load a guide first</h3><p>The picker is populated from the channels in your loaded guide, so make sure your EPG is working (a real programme count on the dashboard) before mapping.</p></li>
@@ -255,14 +255,14 @@ footer{color:var(--muted);font-size:12px;text-align:center;padding:34px;border-t
     <h2 id="plex">Add the tuner in Plex</h2>
     <ol class="steps">
       <li><h3>Open DVR setup</h3><p>Plex → <b>Settings → Live TV &amp; DVR → Set up Plex DVR</b>.</p></li>
-      <li><h3>Pick Tunaar</h3><p>It should appear automatically as an HDHomeRun tuner. If not, choose "enter address manually" and use <code>http://&lt;host-ip&gt;:5004</code>.</p></li>
+      <li><h3>Pick MediaHelm Live</h3><p>It should appear automatically as an HDHomeRun tuner. If not, choose "enter address manually" and use <code>http://&lt;host-ip&gt;:5004</code>.</p></li>
       <li><h3>Skip Plex's guide, choose XMLTV</h3><p>When asked for guide data, select <b>"Use an XMLTV guide"</b> and enter <code>http://&lt;host-ip&gt;:5004/epg.xml</code>.</p></li>
       <li><h3>Map &amp; finish</h3><p>Let Plex match channels to the guide, then finish. Your channels appear under Live TV.</p></li>
     </ol>
-    <div class="note ok"><b>One DVR only.</b> Use a single Tunaar DVR with the XMLTV guide. Don't run a second DVR using Plex's own guide alongside it, or the lineups conflict. Emby/Jellyfin work the same way — add Tunaar as an HDHomeRun tuner and point the guide at <code>/epg.xml</code>.</div>
+    <div class="note ok"><b>One DVR only.</b> Use a single MediaHelm Live DVR with the XMLTV guide. Don't run a second DVR using Plex's own guide alongside it, or the lineups conflict. Emby/Jellyfin work the same way — add MediaHelm Live as an HDHomeRun tuner and point the guide at <code>/epg.xml</code>.</div>
 
     <h2 id="streaming">Stream modes</h2>
-    <p>Under the hood Tunaar can deliver streams three ways. The default suits most setups; change it
+    <p>Under the hood MediaHelm Live can deliver streams three ways. The default suits most setups; change it
        only if you hit playback issues.</p>
     <table>
       <tr><th>Mode</th><th>Best for</th></tr>
@@ -271,16 +271,16 @@ footer{color:var(--muted);font-size:12px;text-align:center;padding:34px;border-t
       <tr><td><b>redirect</b></td><td>Hands Plex the source URL directly — lowest load, but Plex must reach the source itself.</td></tr>
     </table>
 
-    <h2 id="updating">Updating Tunaar</h2>
+    <h2 id="updating">Updating MediaHelm Live</h2>
     <p>If you enabled <b>Watchtower</b> at install, you're done — it updates automatically. Otherwise pull
        the new image and recreate the container (your config lives on the mounted volume, so it's kept):</p>
-    <pre><code>docker pull ghcr.io/munerisuk/tunaar:latest
-docker rm -f tunaar &amp;&amp; docker run -d --name tunaar ...   <span style="color:#6b7686"># same flags as install</span></code></pre>
+    <pre><code>docker pull ghcr.io/munerisuk/mediahelm-live:latest
+docker rm -f mediahelm-live &amp;&amp; docker run -d --name mediahelm-live ...   <span style="color:#6b7686"># same flags as install</span></code></pre>
     <p>Or use the dashboard's <b>Console → Update</b> button if you mounted the Docker socket. See the
        <a href="install.html#updates">Install Guide</a> for both options.</p>
 
     <h2 id="license">Licensing</h2>
-    <p>Tunaar is free to try for <b>30 days</b> — no key, no sign-up, full features from first run.
+    <p>MediaHelm Live is free to try for <b>30 days</b> — no key, no sign-up, full features from first run.
        After the trial <b>everything keeps working</b>; you'll just see a gentle banner inviting you to
        buy a license to support development.</p>
     <ul>
@@ -305,18 +305,18 @@ docker rm -f tunaar &amp;&amp; docker run -d --name tunaar ...   <span style="co
       <tr><td>Regional channel won't match the guide</td><td>Use <b>Settings → Manual EPG mapping</b> to pick the right guide entry by hand (see above).</td></tr>
       <tr><td>A guide URL returns 404</td><td>Paste one URL per line with no extra text; many EPG hosts only serve real paths — verify it loads in a browser.</td></tr>
       <tr><td>A channel buffers / won't play</td><td>Switch that setup to <b>ffmpeg</b> stream mode; test it from <b>Console</b>.</td></tr>
-      <tr><td>Settings reset after update</td><td>Your <code>/config</code> volume isn't persisted — re-run with a bind mount (<code>TUNAAR_VOLUME=…</code>).</td></tr>
-      <tr><td>"Docker socket not mounted"</td><td>Expected unless you opted in. Use Watchtower or <code>TUNAAR_SELF_UPDATE=1</code> — see Install Guide.</td></tr>
+      <tr><td>Settings reset after update</td><td>Your <code>/config</code> volume isn't persisted — re-run with a bind mount (<code>MEDIAHELM_VOLUME=…</code>).</td></tr>
+      <tr><td>"Docker socket not mounted"</td><td>Expected unless you opted in. Use Watchtower or <code>MEDIAHELM_SELF_UPDATE=1</code> — see Install Guide.</td></tr>
     </table>
 
     <h2 id="faq">FAQ</h2>
-    <h3>Does Tunaar provide channels?</h3>
-    <p>No. Tunaar is a bridge — you supply the playlists/devices. The presets just point at free, public
+    <h3>Does MediaHelm Live provide channels?</h3>
+    <p>No. MediaHelm Live is a bridge — you supply the playlists/devices. The presets just point at free, public
        country playlists from the <a href="https://github.com/iptv-org/iptv" target="_blank" rel="noopener">iptv-org</a>
        project (UK, US, Canada, France, Germany and more).</p>
     <h3>What about Plex's own free Live TV?</h3>
     <p>That's built into Plex itself and needs no tuner — you'll already see it in the Plex app under
-       Live TV. Tunaar is for <em>your</em> playlists and HDHomeRun, which Plex can't show natively.</p>
+       Live TV. MediaHelm Live is for <em>your</em> playlists and HDHomeRun, which Plex can't show natively.</p>
     <h3>Can I run IPTV and a real aerial together?</h3>
     <p>Yes — that's a headline feature. Add both as sources; Plex sees one unified tuner and one guide.</p>
     <h3>How many channels can I have?</h3>
@@ -326,7 +326,7 @@ docker rm -f tunaar &amp;&amp; docker run -d --name tunaar ...   <span style="co
   </main>
 </div>
 
-<footer><a href="index.html">Home</a> · <a href="install.html">Install</a> · <a href="acceptable-use.html">Acceptable Use</a> · <a href="legal.html">Terms, Refunds &amp; Privacy</a><br><br>Tunaar v0.8.8 — IPTV &amp; HDHomeRun for Plex · Branded user guide</footer>
+<footer><a href="index.html">Home</a> · <a href="install.html">Install</a> · <a href="acceptable-use.html">Acceptable Use</a> · <a href="legal.html">Terms, Refunds &amp; Privacy</a><br><br>MediaHelm Live v0.9.0 — IPTV &amp; HDHomeRun for Plex · Branded user guide</footer>
 
 <script>
   var t=document.getElementById('tg');

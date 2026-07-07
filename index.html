@@ -4,14 +4,14 @@
   Source of truth: the private MunerisUK/Tunaar repo, docs/ folder.
   This page is mirrored to the public MunerisUK/tunaar-docs repo by CI
   (.github/workflows/sync-docs.yml). Do NOT edit the copy in tunaar-docs —
-  changes there are overwritten on the next sync. Edit in the Tunaar repo.
+  changes there are overwritten on the next sync. Edit in the MediaHelm Live repo.
 -->
 <html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Tunaar — IPTV for Plex that just works</title>
-<meta name="description" content="Tunaar turns any IPTV M3U playlist into Live TV for Plex, Emby & Jellyfin — an HDHomeRun-emulating bridge with a unified XMLTV guide and reliable ffmpeg streaming, in one Docker container.">
+<title>MediaHelm Live — IPTV for Plex that just works</title>
+<meta name="description" content="MediaHelm Live turns any IPTV M3U playlist into Live TV for Plex, Emby & Jellyfin — an HDHomeRun-emulating bridge with a unified XMLTV guide and reliable ffmpeg streaming, in one Docker container.">
 <style>
 :root{
   --bg:#0c0f14;--panel:#141923;--panel2:#1b2230;--line:#273042;
@@ -72,7 +72,7 @@ footer a{color:var(--muted)}
 <body>
 
   <div class="topnav">
-    <span class="name">Tun<span>aar</span></span>
+    <span class="name">MediaHelm <span>Live</span></span>
     <nav>
       <a href="install.html">Install</a>
       <a href="user-guide.html">User Guide</a>
@@ -85,7 +85,7 @@ footer a{color:var(--muted)}
 <div class="wrap">
 
   <section class="hero">
-    <svg class="logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" aria-label="Tunaar">
+    <svg class="logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" aria-label="MediaHelm Live">
       <defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ff7a18"/><stop offset="1" stop-color="#ffb347"/></linearGradient></defs>
       <rect x="6" y="18" width="52" height="38" rx="7" fill="#11151c" stroke="url(#g)" stroke-width="3"/>
       <path d="M20 18 L32 6 L44 18" fill="none" stroke="url(#g)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
@@ -96,12 +96,12 @@ footer a{color:var(--muted)}
       <rect x="22" y="35" width="4" height="12" rx="1.5" fill="url(#g)"/>
       <rect x="29" y="30" width="4" height="17" rx="1.5" fill="url(#g)"/>
     </svg>
-    <div class="bignm">Tun<span>aar</span></div>
+    <div class="bignm">MediaHelm <span>Live</span></div>
     <p class="tag"><strong>IPTV for Plex that just works.</strong> One Docker container turns any IPTV M3U
       playlist into Live TV for Plex, Emby &amp; Jellyfin — with a unified guide and rock-solid streaming.</p>
     <div class="pills">
-      <span class="pill">Version <code>0.8.8</code></span>
-      <span class="pill"><code>ghcr.io/munerisuk/tunaar</code></span>
+      <span class="pill">Version <code>0.9.0</code></span>
+      <span class="pill"><code>ghcr.io/munerisuk/mediahelm-live</code></span>
       <span class="pill">amd64 · arm64</span>
     </div>
     <a class="cta primary" href="https://muneris.lemonsqueezy.com/">Start 30-day free trial</a>
@@ -114,7 +114,7 @@ footer a{color:var(--muted)}
     "all tuners busy", configs that corrupt, and Plex's own bug where every airing that shares a title gets
     the <em>same</em> description. It's powerful, but it's a weekend of yak-shaving.</p>
 
-  <h2>The fix — Tunaar</h2>
+  <h2>The fix — MediaHelm Live</h2>
   <div class="grid">
     <div class="card"><div class="ic">📺</div><h4>HDHomeRun emulation</h4><p>Answers Silicondust discovery, so Plex/Emby/Jellyfin auto-find it as a network tuner — no manual IP.</p></div>
     <div class="card"><div class="ic">🔗</div><h4>Merge everything</h4><p>Many IPTV playlists <em>and</em> a real HDHomeRun behind one device, with collision-free numbering.</p></div>
@@ -126,11 +126,11 @@ footer a{color:var(--muted)}
 
   <h2>Up and running in two minutes</h2>
   <div class="steps">
-    <div class="step"><h4>Run one container</h4><pre>docker run -d --name tunaar \
+    <div class="step"><h4>Run one container</h4><pre>docker run -d --name mediahelm-live \
   --restart unless-stopped --network host \
-  -v tunaar-config:/config \
-  ghcr.io/munerisuk/tunaar:latest</pre></div>
-    <div class="step"><h4>Add your playlist</h4><p>Open <code>http://host:5004</code>, paste your M3U (or pick a free country list), and Tunaar builds the lineup + guide. See the <a href="install.html">install guide</a>.</p></div>
+  -v mediahelm-live-config:/config \
+  ghcr.io/munerisuk/mediahelm-live:latest</pre></div>
+    <div class="step"><h4>Add your playlist</h4><p>Open <code>http://host:5004</code>, paste your M3U (or pick a free country list), and MediaHelm Live builds the lineup + guide. See the <a href="install.html">install guide</a>.</p></div>
     <div class="step"><h4>Add the tuner in Plex</h4><p>Plex auto-discovers it. Point the guide at <code>/epg.xml</code> and you've got Live TV &amp; DVR. See the <a href="user-guide.html">user guide</a>.</p></div>
   </div>
 
@@ -139,7 +139,7 @@ footer a{color:var(--muted)}
     <div class="tier"><div class="sub">Try everything, no card</div><div class="amt">Free<br><small>30-day trial</small></div>
       <ul class="check"><li>All features unlocked</li><li>No sign-up required</li><li>Channels keep streaming after it ends</li></ul></div>
     <div class="tier hot"><span class="badge">Most popular</span><div class="sub">Full product, yearly</div><div class="amt">£16.99<small> / year</small></div>
-      <ul class="check"><li>Everything in Tunaar</li><li>Unlimited sources + real HDHomeRun</li><li>Premium extras &amp; the EPG fix</li><li>Use on up to 2 devices</li></ul></div>
+      <ul class="check"><li>Everything in MediaHelm Live</li><li>Unlimited sources + real HDHomeRun</li><li>Premium extras &amp; the EPG fix</li><li>Use on up to 2 devices</li></ul></div>
     <div class="tier"><div class="sub">Pay once, keep forever</div><div class="amt">£49.99<small> lifetime</small></div>
       <ul class="check"><li>Everything, no renewals</li><li>All future 0.x updates</li><li>Use on up to 2 devices</li></ul></div>
   </div>
@@ -149,16 +149,16 @@ footer a{color:var(--muted)}
   <div class="works"><span>Plex Live TV &amp; DVR</span><span>Emby</span><span>Jellyfin</span><span>QNAP · Synology · Unraid</span><span>Docker on any Linux host</span></div>
 
   <div style="text-align:center">
-    <a class="cta primary" href="https://muneris.lemonsqueezy.com/">Get Tunaar</a>
+    <a class="cta primary" href="https://muneris.lemonsqueezy.com/">Get MediaHelm Live</a>
     <a class="cta ghost" href="mailto:info@muneris.co.uk">Talk to us</a>
   </div>
 
   <footer>
     <a href="install.html">Install</a> · <a href="user-guide.html">User Guide</a> ·
     <a href="acceptable-use.html">Acceptable Use</a> ·
-    <a href="legal.html">Terms, Refunds &amp; Privacy</a> · <a href="mailto:info@muneris.co.uk?subject=Tunaar%3A%20Support">Support</a><br><br>
-    Tunaar © 2026 Muneris Management Ltd — a company registered in England &amp; Wales (no. 09096411).
-    Tunaar is a neutral tuner bridge and provides no channels itself.
+    <a href="legal.html">Terms, Refunds &amp; Privacy</a> · <a href="mailto:info@muneris.co.uk?subject=MediaHelm Live%3A%20Support">Support</a><br><br>
+    MediaHelm Live © 2026 Muneris Management Ltd — a company registered in England &amp; Wales (no. 09096411).
+    MediaHelm Live is a neutral tuner bridge and provides no channels itself.
   </footer>
 
 </div>

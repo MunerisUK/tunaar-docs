@@ -4,13 +4,13 @@
   Source of truth: the private MunerisUK/Tunaar repo, docs/ folder.
   This page is mirrored to the public MunerisUK/tunaar-docs repo by CI
   (.github/workflows/sync-docs.yml). Do NOT edit the copy in tunaar-docs —
-  changes there are overwritten on the next sync. Edit in the Tunaar repo.
+  changes there are overwritten on the next sync. Edit in the MediaHelm Live repo.
 -->
 <html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Tunaar — Docker Capabilities &amp; Install Guide</title>
+<title>MediaHelm Live — Docker Capabilities &amp; Install Guide</title>
 <script>
   (function () {
     var s = localStorage.getItem('tunaar-theme');
@@ -99,7 +99,7 @@ footer{color:var(--muted);font-size:12px;text-align:center;padding:34px;border-t
 </head>
 <body>
 <header>
-  <svg class="logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Tunaar">
+  <svg class="logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="MediaHelm Live">
     <defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ff7a18"/><stop offset="1" stop-color="#ffb347"/></linearGradient></defs>
     <rect x="6" y="18" width="52" height="38" rx="7" fill="#11151c" stroke="url(#g)" stroke-width="3"/>
     <path d="M20 18 L32 6 L44 18" fill="none" stroke="url(#g)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
@@ -110,8 +110,8 @@ footer{color:var(--muted);font-size:12px;text-align:center;padding:34px;border-t
     <rect x="22" y="35" width="4" height="12" rx="1.5" fill="url(#g)"/>
     <rect x="29" y="30" width="4" height="17" rx="1.5" fill="url(#g)"/>
   </svg>
-  <div class="brand">Tun<span>aar</span></div>
-  <span class="ver">Install Guide · v0.8.8</span>
+  <div class="brand">MediaHelm <span>Live</span></div>
+  <span class="ver">Install Guide · v0.9.0</span>
   <nav class="nav">
     <a href="#capabilities">Capabilities</a>
     <a href="#requirements">Requirements</a>
@@ -135,15 +135,15 @@ footer{color:var(--muted);font-size:12px;text-align:center;padding:34px;border-t
       <rect x="22" y="35" width="4" height="12" rx="1.5" fill="url(#g)"/>
       <rect x="29" y="30" width="4" height="17" rx="1.5" fill="url(#g)"/>
     </svg>
-    <h1>Tunaar on Docker</h1>
+    <h1>MediaHelm Live on Docker</h1>
     <p>A single-container bridge that makes IPTV playlists and real HDHomeRun tuners
        appear in Plex as one Live-TV device — with a unified guide.</p>
-    <div class="pill">Version <code>0.8.8</code></div>
-    <div class="pill">Image: <code>ghcr.io/munerisuk/tunaar:latest</code></div>
+    <div class="pill">Version <code>0.9.0</code></div>
+    <div class="pill">Image: <code>ghcr.io/munerisuk/mediahelm-live:latest</code></div>
     <p style="color:var(--muted);font-size:13px;margin-top:10px">30-day free trial, then £16.99/yr or £49.99 lifetime — <a href="https://muneris.lemonsqueezy.com/">get a licence</a>.</p>
   </section>
 
-  <h2 id="capabilities">What Tunaar does</h2>
+  <h2 id="capabilities">What MediaHelm Live does</h2>
   <div class="cards">
     <div class="card"><div class="ico">📺</div><h4>HDHomeRun emulation</h4><p>Answers Silicondust discovery so Plex, Emby &amp; Jellyfin auto-find it as a network tuner.</p></div>
     <div class="card"><div class="ico">🔗</div><h4>M3U ingestion</h4><p>Pulls one or more IPTV playlists and merges them into a single, numbered lineup.</p></div>
@@ -153,7 +153,7 @@ footer{color:var(--muted);font-size:12px;text-align:center;padding:34px;border-t
     <div class="card"><div class="ico">⚡</div><h4>One-click country playlists</h4><p>Add free iptv-org country lists (UK, US, Canada, France, Germany, Spain and more) in a click.</p></div>
     <div class="card"><div class="ico">🩹</div><h4>Plex duplicate-description fix</h4><p>Optional guide tweak so Plex keeps a separate description per airing — clean titles, date-based episode numbers.</p></div>
     <div class="card"><div class="ico">🎛️</div><h4>Web dashboard</h4><p>Manage sources, guide, groups and tuners from a branded UI — no config files needed.</p></div>
-    <div class="card"><div class="ico">🔄</div><h4>Auto-update</h4><p>Optional Watchtower companion keeps the container current, scoped to Tunaar only.</p></div>
+    <div class="card"><div class="ico">🔄</div><h4>Auto-update</h4><p>Optional Watchtower companion keeps the container current, scoped to MediaHelm Live only.</p></div>
   </div>
 
   <h2 id="requirements">Requirements</h2>
@@ -164,24 +164,24 @@ footer{color:var(--muted);font-size:12px;text-align:center;padding:34px;border-t
       <li>An <b>IPTV playlist URL</b> and/or a <b>real HDHomeRun</b> device — you can also start empty and add sources from the dashboard.</li>
       <li>A few hundred MB of disk for the image; a small persistent volume for config.</li>
     </ul>
-    <div class="note">Tunaar runs best with <b>host networking</b> so Plex's HDHomeRun auto-discovery (UDP 65001) works. On platforms without host networking, use bridge mode and add the tuner by IP.</div>
+    <div class="note">MediaHelm Live runs best with <b>host networking</b> so Plex's HDHomeRun auto-discovery (UDP 65001) works. On platforms without host networking, use bridge mode and add the tuner by IP.</div>
   </div>
 
   <h2 id="install">Install</h2>
-  <p>Both options produce the same running container. Tunaar is distributed as a Docker image — there's nothing to clone or build.</p>
+  <p>Both options produce the same running container. MediaHelm Live is distributed as a Docker image — there's nothing to clone or build.</p>
 
   <h3>Option A — Plain <code>docker run</code> (recommended)</h3>
-  <pre><code>docker run -d --name tunaar --restart unless-stopped \
+  <pre><code>docker run -d --name mediahelm-live --restart unless-stopped \
   --network host \
-  -v /share/Container/tunaar/config:/config \
-  ghcr.io/munerisuk/tunaar:latest</code></pre>
+  -v /share/Container/mediahelm-live/config:/config \
+  ghcr.io/munerisuk/mediahelm-live:latest</code></pre>
   <p>On a host without host networking, swap <code>--network host</code> for <code>-p 5004:5004</code>. Then browse to <code>http://&lt;host-ip&gt;:5004</code>.</p>
 
   <h3>Option B — Docker Compose</h3>
   <pre><code>services:
-  tunaar:
-    image: ghcr.io/munerisuk/tunaar:latest
-    container_name: tunaar
+  mediahelm-live:
+    image: ghcr.io/munerisuk/mediahelm-live:latest
+    container_name: mediahelm-live
     restart: unless-stopped
     network_mode: host
     volumes:
@@ -192,32 +192,32 @@ footer{color:var(--muted);font-size:12px;text-align:center;padding:34px;border-t
   <p>Everything is editable in the dashboard, but these env vars seed the container or override config:</p>
   <table>
     <tr><th>Variable</th><th>Default</th><th>What it does</th></tr>
-    <tr><td><code>TUNAAR_PORT</code></td><td><code>5004</code></td><td>Dashboard / API port (bridge mode only).</td></tr>
-    <tr><td><code>TUNAAR_PLAYLIST</code></td><td>—</td><td>Optional IPTV M3U URL to seed on first run.</td></tr>
-    <tr><td><code>TUNAAR_EPG_URL</code></td><td>—</td><td>Optional XMLTV guide URL.</td></tr>
+    <tr><td><code>MEDIAHELM_PORT</code></td><td><code>5004</code></td><td>Dashboard / API port (bridge mode only).</td></tr>
+    <tr><td><code>MEDIAHELM_PLAYLIST</code></td><td>—</td><td>Optional IPTV M3U URL to seed on first run.</td></tr>
+    <tr><td><code>MEDIAHELM_EPG_URL</code></td><td>—</td><td>Optional XMLTV guide URL.</td></tr>
   </table>
   <div class="note warn"><b>Persist your config — important.</b> Always mount <code>/config</code> to a
-    <b>named volume</b> (e.g. <code>-v tunaar-config:/config</code>) or a <b>host path</b>. If you run the
+    <b>named volume</b> (e.g. <code>-v mediahelm-live-config:/config</code>) or a <b>host path</b>. If you run the
     container with no <code>/config</code> mapping, Docker creates an <em>anonymous</em> volume that is
     <b>not carried over when the container is recreated</b> — so an update (especially via Watchtower)
-    starts with a blank config and you'll have to re-add your sources, guide and channel mappings. Tunaar
+    starts with a blank config and you'll have to re-add your sources, guide and channel mappings. MediaHelm Live
     warns on the dashboard if it detects this.</div>
 
   <h2 id="updates">Automatic updates</h2>
   <p>Two ways to stay current — pick one.</p>
 
   <h3>Hands-off — Watchtower (recommended)</h3>
-  <p>A tiny companion container checks for new images and updates Tunaar for you. Scope it to <b>only</b> the <code>tunaar</code> container so nothing else on your host is touched.</p>
-  <pre><code>docker run -d --name watchtower-tunaar --restart unless-stopped \
+  <p>A tiny companion container checks for new images and updates MediaHelm Live for you. Scope it to <b>only</b> the <code>mediahelm-live</code> container so nothing else on your host is touched.</p>
+  <pre><code>docker run -d --name watchtower-mediahelm-live --restart unless-stopped \
   -v /var/run/docker.sock:/var/run/docker.sock \
-  containrrr/watchtower --cleanup --interval 86400 tunaar</code></pre>
-  <p>Lower <code>--interval</code> (seconds) to check more often; stop it with <code>docker rm -f watchtower-tunaar</code>.</p>
+  containrrr/watchtower --cleanup --interval 86400 mediahelm-live</code></pre>
+  <p>Lower <code>--interval</code> (seconds) to check more often; stop it with <code>docker rm -f watchtower-mediahelm-live</code>.</p>
 
   <h3>One-click from the dashboard</h3>
-  <p>The <b>Console → Update</b> button lets Tunaar pull a new image and recreate itself. Enable it by adding the Docker socket and flag to your <code>docker run</code> / Compose:</p>
-  <pre><code>-e TUNAAR_SELF_UPDATE=1 \
+  <p>The <b>Console → Update</b> button lets MediaHelm Live pull a new image and recreate itself. Enable it by adding the Docker socket and flag to your <code>docker run</code> / Compose:</p>
+  <pre><code>-e MEDIAHELM_SELF_UPDATE=1 \
   -v /var/run/docker.sock:/var/run/docker.sock</code></pre>
-  <div class="note warn"><b>Heads up:</b> both grant Docker (root-equivalent) access — to the Watchtower image, or to the Tunaar container itself. Opt in deliberately. Prefer neither? Pull the new image and recreate the container over SSH.</div>
+  <div class="note warn"><b>Heads up:</b> both grant Docker (root-equivalent) access — to the Watchtower image, or to the MediaHelm Live container itself. Opt in deliberately. Prefer neither? Pull the new image and recreate the container over SSH.</div>
 
   <h2>Verify it's working</h2>
   <ul>
@@ -235,7 +235,7 @@ footer{color:var(--muted);font-size:12px;text-align:center;padding:34px;border-t
 
 <footer>
   <a href="index.html">Home</a> · <a href="user-guide.html">User Guide</a> · <a href="acceptable-use.html">Acceptable Use</a> · <a href="legal.html">Terms, Refunds &amp; Privacy</a><br><br>
-  Tunaar — IPTV &amp; HDHomeRun for Plex · <code>ghcr.io/munerisuk/tunaar</code><br>
+  MediaHelm Live — IPTV &amp; HDHomeRun for Plex · <code>ghcr.io/munerisuk/mediahelm-live</code><br>
   Community lists referenced in presets are third-party and may change.
 </footer>
 

@@ -1,13 +1,13 @@
 <div align="center">
-  <img src="logo.svg" width="96" alt="Tunaar logo">
-  <h1>Tunaar</h1>
+  <img src="logo.svg" width="96" alt="MediaHelm Live logo">
+  <h1>MediaHelm Live</h1>
   <p><strong>IPTV for Plex that just works.</strong><br>
   A single-container HDHomeRun-emulating bridge that turns any IPTV M3U playlist
   into Live TV for Plex, Emby & Jellyfin — with XMLTV guide data and reliable,
   ffmpeg-remuxed streaming.</p>
   <p>
     📦 <a href="install.html">Docker Install Guide</a> &nbsp;·&nbsp;
-    🐳 <a href="https://github.com/MunerisUK/Tunaar/pkgs/container/tunaar">Container Package</a> &nbsp;·&nbsp;
+    🐳 <a href="https://github.com/MunerisUK/Tunaar/pkgs/container/mediahelm-live">Container Package</a> &nbsp;·&nbsp;
     📖 <a href="user-guide.html">User Guide</a>
     &nbsp;<em>(branded HTML — open in a browser)</em>
   </p>
@@ -15,24 +15,24 @@
 
 ---
 
-## Acceptable use — Tunaar supplies no content
+## Acceptable use — MediaHelm Live supplies no content
 
-**Tunaar ships empty.** It contains no channels, no streams, no playlists, no guide
-data and no subscriptions, and it provides access to none. Tunaar is a neutral tuner
+**MediaHelm Live ships empty.** It contains no channels, no streams, no playlists, no guide
+data and no subscriptions, and it provides access to none. MediaHelm Live is a neutral tuner
 bridge: **you supply your own legitimate sources** — your own tuner hardware, or a
 service you lawfully subscribe to — and you are solely responsible for their legality.
-Using Tunaar with pirated or infringing sources, to circumvent access controls, or for
+Using MediaHelm Live with pirated or infringing sources, to circumvent access controls, or for
 commercial retransmission is prohibited.
 
-Full policy: **[Acceptable Use Policy](ACCEPTABLE_USE.md)**. Tunaar also requires
+Full policy: **[Acceptable Use Policy](ACCEPTABLE_USE.md)**. MediaHelm Live also requires
 every user to agree to it in-app before setup can be completed.
 
 ---
 
-## Why Tunaar?
+## Why MediaHelm Live?
 
 Tools like xTeVe are powerful but notoriously clunky — fiddly UI, tedious EPG
-mapping, buffering that drops streams, and config that corrupts. Tunaar focuses
+mapping, buffering that drops streams, and config that corrupts. MediaHelm Live focuses
 on being **robust and effortless**:
 
 - 🎯 **One Docker container.** `docker compose up` and you're done — ffmpeg
@@ -42,7 +42,7 @@ on being **robust and effortless**:
 - 🎬 **Reliable streaming.** Each channel is remuxed through ffmpeg
   (`-c copy -f mpegts`, auto-reconnect) into a clean MPEG-TS that players accept
   without the hit-and-miss buffering of bare redirects. HLS sources just work.
-- 🗓️ **EPG that just works.** Tunaar auto-detects the guide URL embedded in your
+- 🗓️ **EPG that just works.** MediaHelm Live auto-detects the guide URL embedded in your
   playlist (`url-tvg`) and merges in any extra XMLTV URLs you add — no manual
   channel mapping. Filtered to your lineup and served at `/epg.xml`.
 - ➕ **Multiple IPTV sources.** Add as many M3U playlists as you like (from the
@@ -61,17 +61,17 @@ on being **robust and effortless**:
 ## Quick start (Docker)
 
 A pre-built multi-arch image (amd64 + arm64) is published to GHCR on every push
-to `main`: **`ghcr.io/munerisuk/tunaar:latest`**.
+to `main`: **`ghcr.io/munerisuk/mediahelm-live:latest`**.
 
-**No config file needed** — everything can be set with `TUNAAR_*` environment
+**No config file needed** — everything can be set with `MEDIAHELM_*` environment
 variables. The only one you must set is your playlist:
 
 ```bash
-docker run -d --name tunaar --restart unless-stopped \
+docker run -d --name mediahelm-live --restart unless-stopped \
   --network host \
-  -e TUNAAR_PLAYLIST="https://iptv-org.github.io/iptv/index.m3u" \
-  -v tunaar-config:/config \
-  ghcr.io/munerisuk/tunaar:latest
+  -e MEDIAHELM_PLAYLIST="https://iptv-org.github.io/iptv/index.m3u" \
+  -v mediahelm-live-config:/config \
+  ghcr.io/munerisuk/mediahelm-live:latest
 ```
 
 Open `http://<host>:5004` for the dashboard. That's it.
@@ -85,37 +85,37 @@ QNAP NAS are Linux, so the pre-built image and host networking both work. The
 one-liner above works over SSH (Container Station ships Docker). Or use the UI:
 
 **Container Station → Containers → Create**, search the registry for
-`ghcr.io/munerisuk/tunaar`, choose **Host** networking, add an environment
-variable `TUNAAR_PLAYLIST=<your playlist URL>`, and create.
+`ghcr.io/munerisuk/mediahelm-live`, choose **Host** networking, add an environment
+variable `MEDIAHELM_PLAYLIST=<your playlist URL>`, and create.
 
-> The GHCR package must be **public** (GitHub → Packages → tunaar → Package
+> The GHCR package must be **public** (GitHub → Packages → mediahelm-live → Package
 > settings → Change visibility) for the NAS to pull it without credentials.
 
 Then browse to `http://<nas-ip>:5004`.
 
 ### Automatic updates
 
-Two ways to keep Tunaar current:
+Two ways to keep MediaHelm Live current:
 
 **Hands-off (recommended) — Watchtower.** Runs a tiny companion container that
-checks for a new image and updates Tunaar for you. Scope it to *only* the
-`tunaar` container so nothing else on your host is touched:
+checks for a new image and updates MediaHelm Live for you. Scope it to *only* the
+`mediahelm-live` container so nothing else on your host is touched:
 
 ```bash
-docker run -d --name watchtower-tunaar --restart unless-stopped \
+docker run -d --name watchtower-mediahelm-live --restart unless-stopped \
   -v /var/run/docker.sock:/var/run/docker.sock \
-  containrrr/watchtower --cleanup --interval 86400 tunaar
+  containrrr/watchtower --cleanup --interval 86400 mediahelm-live
 ```
 
 Lower `--interval` (seconds) to check more often; stop it with
-`docker rm -f watchtower-tunaar`.
+`docker rm -f watchtower-mediahelm-live`.
 
-**One-click from the dashboard.** The **Console → Update** button lets Tunaar
+**One-click from the dashboard.** The **Console → Update** button lets MediaHelm Live
 pull a new image and recreate itself. Enable it by adding the Docker socket and
 flag to your `docker run` / Compose:
 
 ```bash
--e TUNAAR_SELF_UPDATE=1 \
+-e MEDIAHELM_SELF_UPDATE=1 \
 -v /var/run/docker.sock:/var/run/docker.sock
 ```
 
@@ -129,17 +129,17 @@ Create a `docker-compose.yml` next to wherever you keep your stacks:
 
 ```yaml
 services:
-  tunaar:
-    image: ghcr.io/munerisuk/tunaar:latest
-    container_name: tunaar
+  mediahelm-live:
+    image: ghcr.io/munerisuk/mediahelm-live:latest
+    container_name: mediahelm-live
     restart: unless-stopped
     network_mode: host
     environment:
-      - TUNAAR_PLAYLIST=https://your/playlist.m3u
+      - MEDIAHELM_PLAYLIST=https://your/playlist.m3u
     volumes:
-      - tunaar-config:/config
+      - mediahelm-live-config:/config
 volumes:
-  tunaar-config:
+  mediahelm-live-config:
 ```
 
 then `docker compose up -d`.
@@ -150,15 +150,15 @@ then `docker compose up -d`.
 
 | Field | Value |
 |-------|-------|
-| Name | `Tunaar` |
-| Repository | `ghcr.io/munerisuk/tunaar:latest` |
+| Name | `MediaHelm Live` |
+| Repository | `ghcr.io/munerisuk/mediahelm-live:latest` |
 | Network Type | **Host** *(so Plex auto-discovers the tuner via UDP 65001)* |
-| Path | Container `/config` → Host `/mnt/user/appdata/tunaar` |
+| Path | Container `/config` → Host `/mnt/user/appdata/mediahelm-live` |
 | WebUI | `http://[IP]:5004/` |
 
 Apply, then open `http://<unraid-ip>:5004` and run the setup wizard. Config lives in
 `appdata`, so it survives updates. A ready-made template is in
-[`unraid/tunaar.xml`](unraid/tunaar.xml) — drop it in
+[`unraid/mediahelm-live.xml`](unraid/mediahelm-live.xml) — drop it in
 `/boot/config/plugins/dockerMan/templates-user/` to get it under *Add Container →
 Template*.
 
@@ -170,14 +170,14 @@ the tuner in Plex manually by IP.
 ## Add the tuner in Plex
 
 1. **Settings → Live TV & DVR → Set up Plex DVR.**
-2. Tunaar answers HDHomeRun discovery (UDP 65001), so it should appear
+2. MediaHelm Live answers HDHomeRun discovery (UDP 65001), so it should appear
    automatically. If it doesn't (e.g. Plex is on another subnet), click
    **"Enter its network address manually"** and enter `192.168.1.50:5004`.
 3. Map channels. For the guide, choose **"Have an XMLTV file?"** and point Plex at
    `http://192.168.1.50:5004/epg.xml` (or use Plex's own guide and let it match).
 
 > Auto-discovery needs the container on **host networking** (the default) so the
-> broadcast reaches it. Disable it with `TUNAAR_DISCOVERY=false` if needed.
+> broadcast reaches it. Disable it with `MEDIAHELM_DISCOVERY=false` if needed.
 
 Emby/Jellyfin: add an **M3U Tuner** at `…/lineup.json` (or an HDHomeRun device)
 and an **XMLTV** guide at `…/epg.xml`.
@@ -201,10 +201,10 @@ and an **XMLTV** guide at `…/epg.xml`.
 | `playlist_refresh` / `epg_refresh` | Cache TTLs in seconds. |
 | `advertised_url` | Override the base URL given to Plex (reverse-proxy setups). |
 
-Every key can also be set via an environment variable named `TUNAAR_<KEY>` in
-uppercase (e.g. `TUNAAR_PLAYLIST`, `TUNAAR_TUNER_COUNT`, `TUNAAR_EPG_URL`). Env
+Every key can also be set via an environment variable named `MEDIAHELM_<KEY>` in
+uppercase (e.g. `MEDIAHELM_PLAYLIST`, `MEDIAHELM_TUNER_COUNT`, `MEDIAHELM_EPG_URL`). Env
 vars override the config file, so no file is required at all. The config file
-path itself is set with `TUNAAR_CONFIG` (defaults to `config.json`, or
+path itself is set with `MEDIAHELM_CONFIG` (defaults to `config.json`, or
 `/config/config.json` in Docker).
 
 ## Endpoints
@@ -228,14 +228,14 @@ path itself is set with `TUNAAR_CONFIG` (defaults to `config.json`, or
 
 ## License
 
-Tunaar is **proprietary software** — © 2026 Muneris Management Ltd, all rights
+MediaHelm Live is **proprietary software** — © 2026 Muneris Management Ltd, all rights
 reserved. It is **not** open-source or free software. Your use is governed by the
-[Tunaar End User License Agreement](LICENSE) (see also [NOTICE](NOTICE)). You may
+[MediaHelm Live End User License Agreement](LICENSE) (see also [NOTICE](NOTICE)). You may
 not copy, redistribute, modify, sublicense, or reverse engineer it except as that
 agreement (or applicable law) expressly permits; the availability of source code
 does not grant any such rights.
 
-**Get a license.** Tunaar offers a free trial, then **£16.99/year** or a one-off
+**Get a license.** MediaHelm Live offers a free trial, then **£16.99/year** or a one-off
 **£49.99 lifetime** license, sold through our store at
 <https://muneris.lemonsqueezy.com/>. For volume, OEM, or other licensing
 enquiries, contact <info@muneris.co.uk>.
