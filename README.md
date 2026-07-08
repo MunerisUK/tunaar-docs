@@ -7,7 +7,7 @@
   ffmpeg-remuxed streaming.</p>
   <p>
     📦 <a href="install.html">Docker Install Guide</a> &nbsp;·&nbsp;
-    🐳 <a href="https://github.com/MunerisUK/Tunaar/pkgs/container/mediahelm-live">Container Package</a> &nbsp;·&nbsp;
+    🐳 <a href="https://github.com/MunerisUK/mediahelm-live/pkgs/container/mediahelm-live">Container Package</a> &nbsp;·&nbsp;
     📖 <a href="user-guide.html">User Guide</a>
     &nbsp;<em>(branded HTML — open in a browser)</em>
   </p>
